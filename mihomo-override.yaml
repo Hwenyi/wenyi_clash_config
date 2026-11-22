@@ -1,3 +1,7 @@
+# 仅保存策略组选择；不接管 OpenClash 的 DNS / Fake-IP 设置
+profile:
+  store-selected: true
+
 proxy-groups:
   - name: "🎯 节点选择"
     type: select
@@ -21,24 +25,24 @@ proxy-groups:
     lazy: true
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Urltest.png"
 
-  # 手动切换：按国家手动分组，同时保留全部节点入口
+  # 手动切换：进入国家组；每个国家内部可选自动优选或手动指定具体节点
   - name: "🌐 手动切换"
     type: select
     proxies:
-      - "🇭🇰 香港-手动"
-      - "🇯🇵 日本-手动"
-      - "🇹🇼 台湾-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇰🇷 韩国-手动"
-      - "🇺🇸 美国-手动"
-      - "🇬🇧 英国-手动"
-      - "🇩🇪 德国-手动"
-      - "🇫🇷 法国-手动"
-      - "🇮🇳 印度-手动"
-      - "🇧🇷 巴西-手动"
-      - "🇦🇺 澳大利亚-手动"
-      - "🇨🇦 加拿大-手动"
-      - "🇷🇺 俄罗斯-手动"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
@@ -57,99 +61,337 @@ proxy-groups:
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
 
-  - name: "🇭🇰 香港-手动"
+  # 香港 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇭🇰 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(香港|Hong[ _-]?Kong|\\bHK\\b|HK[0-9_-]|🇭🇰)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇭🇰 香港"
     type: select
+    proxies:
+      - "🇭🇰 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(香港|Hong[ _-]?Kong|\\bHK\\b|HK[0-9_-]|🇭🇰)"
 
-  - name: "🇯🇵 日本-手动"
+  # 日本 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇯🇵 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(日本|Japan|东京|東京|大阪|Osaka|Tokyo|\\bJP\\b|🇯🇵)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇯🇵 日本"
     type: select
+    proxies:
+      - "🇯🇵 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(日本|Japan|东京|東京|大阪|Osaka|Tokyo|\\bJP\\b|🇯🇵)"
 
-  - name: "🇹🇼 台湾-手动"
+  # 台湾 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇹🇼 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(台湾|台灣|Taiwan|Taipei|台北|高雄|\\bTW\\b|🇹🇼)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇹🇼 台湾"
     type: select
+    proxies:
+      - "🇹🇼 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(台湾|台灣|Taiwan|Taipei|台北|高雄|\\bTW\\b|🇹🇼)"
 
-  - name: "🇸🇬 新加坡-手动"
+  # 新加坡 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇸🇬 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(新加坡|狮城|獅城|Singapore|\\bSG\\b|🇸🇬)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇸🇬 新加坡"
     type: select
+    proxies:
+      - "🇸🇬 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(新加坡|狮城|獅城|Singapore|\\bSG\\b|🇸🇬)"
 
-  - name: "🇰🇷 韩国-手动"
+  # 韩国 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇰🇷 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(韩国|韓國|南韩|南韓|Korea|Seoul|首尔|首爾|\\bKR\\b|\\bKOR\\b|🇰🇷)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇰🇷 韩国"
     type: select
+    proxies:
+      - "🇰🇷 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(韩国|韓國|南韩|南韓|Korea|Seoul|首尔|首爾|\\bKR\\b|\\bKOR\\b|🇰🇷)"
 
-  - name: "🇺🇸 美国-手动"
+  # 美国 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇺🇸 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(美国|美國|United[ _-]?States|America|\\bUSA?\\b|US[0-9_-]|Los[ _-]?Angeles|San[ _-]?Jose|San[ _-]?Francisco|Santa[ _-]?Clara|Fremont|Silicon[ _-]?Valley|San[ _-]?Mateo|Seattle|Portland|Las[ _-]?Vegas|Phoenix|Dallas|Houston|Austin|Chicago|Atlanta|Miami|New[ _-]?York|Ashburn|Washington|Virginia|New[ _-]?Jersey|Boston|Denver|Salt[ _-]?Lake[ _-]?City|San[ _-]?Diego|Sacramento|Reno|Oregon|California|Texas|Illinois|Tampa|Orlando|Detroit|Minneapolis|Kansas[ _-]?City|Charlotte|Raleigh|Pittsburgh|Buffalo|Honolulu|Irvine|El[ _-]?Segundo|Burbank|San[ _-]?Antonio|洛杉矶|圣何塞|圣克拉拉|圣弗朗西斯科|硅谷|西雅图|波特兰|拉斯维加斯|凤凰城|达拉斯|休斯顿|奥斯汀|芝加哥|亚特兰大|迈阿密|纽约|阿什本|华盛顿|弗吉尼亚|新泽西|波士顿|丹佛|盐湖城|圣迭戈|萨克拉门托|雷诺|檀香山|尔湾|🇺🇸)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇺🇸 美国"
     type: select
+    proxies:
+      - "🇺🇸 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(美国|美國|United[ _-]?States|America|\\bUSA?\\b|US[0-9_-]|Los[ _-]?Angeles|San[ _-]?Jose|San[ _-]?Francisco|Santa[ _-]?Clara|Fremont|Silicon[ _-]?Valley|San[ _-]?Mateo|Seattle|Portland|Las[ _-]?Vegas|Phoenix|Dallas|Houston|Austin|Chicago|Atlanta|Miami|New[ _-]?York|Ashburn|Washington|Virginia|New[ _-]?Jersey|Boston|Denver|Salt[ _-]?Lake[ _-]?City|San[ _-]?Diego|Sacramento|Reno|Oregon|California|Texas|Illinois|Tampa|Orlando|Detroit|Minneapolis|Kansas[ _-]?City|Charlotte|Raleigh|Pittsburgh|Buffalo|Honolulu|Irvine|El[ _-]?Segundo|Burbank|San[ _-]?Antonio|洛杉矶|圣何塞|圣克拉拉|圣弗朗西斯科|硅谷|西雅图|波特兰|拉斯维加斯|凤凰城|达拉斯|休斯顿|奥斯汀|芝加哥|亚特兰大|迈阿密|纽约|阿什本|华盛顿|弗吉尼亚|新泽西|波士顿|丹佛|盐湖城|圣迭戈|萨克拉门托|雷诺|檀香山|尔湾|🇺🇸)"
 
-  - name: "🇬🇧 英国-手动"
+  # 英国 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇬🇧 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(英国|英國|United[ _-]?Kingdom|Great[ _-]?Britain|London|Manchester|Birmingham|Glasgow|Edinburgh|\\bUK\\b|\\bGB\\b|🇬🇧)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇬🇧 英国"
     type: select
+    proxies:
+      - "🇬🇧 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(英国|英國|United[ _-]?Kingdom|Great[ _-]?Britain|London|Manchester|Birmingham|Glasgow|Edinburgh|\\bUK\\b|\\bGB\\b|🇬🇧)"
 
-  - name: "🇩🇪 德国-手动"
+  # 德国 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇩🇪 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(德国|德國|Germany|Frankfurt|Berlin|Munich|München|Nuremberg|Dusseldorf|Düsseldorf|\\bDE\\b|🇩🇪)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇩🇪 德国"
     type: select
+    proxies:
+      - "🇩🇪 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(德国|德國|Germany|Frankfurt|Berlin|Munich|München|Nuremberg|Dusseldorf|Düsseldorf|\\bDE\\b|🇩🇪)"
 
-  - name: "🇫🇷 法国-手动"
+  # 法国 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇫🇷 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(法国|法國|France|Paris|Marseille|Lyon|\\bFR\\b|🇫🇷)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇫🇷 法国"
     type: select
+    proxies:
+      - "🇫🇷 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(法国|法國|France|Paris|Marseille|Lyon|\\bFR\\b|🇫🇷)"
 
-  - name: "🇮🇳 印度-手动"
+  # 印度 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇮🇳 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(印度|India|Mumbai|Delhi|Bangalore|Bengaluru|Chennai|Hyderabad|Kolkata|\\bIN\\b|🇮🇳)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇮🇳 印度"
     type: select
+    proxies:
+      - "🇮🇳 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(印度|India|Mumbai|Delhi|Bangalore|Bengaluru|Chennai|Hyderabad|Kolkata|\\bIN\\b|🇮🇳)"
 
-  - name: "🇧🇷 巴西-手动"
+  # 巴西 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇧🇷 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(巴西|Brazil|São[ _-]?Paulo|Sao[ _-]?Paulo|Rio[ _-]?de[ _-]?Janeiro|\\bBR\\b|🇧🇷)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇧🇷 巴西"
     type: select
+    proxies:
+      - "🇧🇷 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(巴西|Brazil|São[ _-]?Paulo|Sao[ _-]?Paulo|Rio[ _-]?de[ _-]?Janeiro|\\bBR\\b|🇧🇷)"
 
-  - name: "🇦🇺 澳大利亚-手动"
+  # 澳大利亚 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇦🇺 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(澳大利亚|澳洲|Australia|Sydney|Melbourne|Brisbane|Perth|Adelaide|\\bAU\\b|🇦🇺)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇦🇺 澳大利亚"
     type: select
+    proxies:
+      - "🇦🇺 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(澳大利亚|澳洲|Australia|Sydney|Melbourne|Brisbane|Perth|Adelaide|\\bAU\\b|🇦🇺)"
 
-  - name: "🇨🇦 加拿大-手动"
+  # 加拿大 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇨🇦 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(加拿大|Canada|Toronto|Vancouver|Montreal|Montréal|Quebec|Calgary|Ottawa|\\bCA\\b|🇨🇦)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇨🇦 加拿大"
     type: select
+    proxies:
+      - "🇨🇦 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(加拿大|Canada|Toronto|Vancouver|Montreal|Montréal|Quebec|Calgary|Ottawa|\\bCA\\b|🇨🇦)"
 
-  - name: "🇷🇺 俄罗斯-手动"
+  # 俄罗斯 自动测速辅助组：由国家组内的「自动选择」入口调用
+  - name: "🇷🇺 自动选择"
+    type: url-test
+    include-all: true
+    exclude-type: "direct|reject"
+    exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
+    filter: "(?i)(俄罗斯|俄羅斯|Russia|Moscow|Moskva|St[ ._-]?Petersburg|Saint[ ._-]?Petersburg|\\bRU\\b|🇷🇺)"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+    timeout: 5000
+    expected-status: 204
+    lazy: true
+    hidden: true
+
+  - name: "🇷🇺 俄罗斯"
     type: select
+    proxies:
+      - "🇷🇺 自动选择"
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
@@ -160,11 +402,11 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇭🇰 香港-手动"
-      - "🇹🇼 台湾-手动"
+      - "🇺🇸 美国"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇭🇰 香港"
+      - "🇹🇼 台湾"
       - "☁️ 甲骨文圣何塞"
       - "🌐 手动切换"
       - "DIRECT"
@@ -175,11 +417,11 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇭🇰 香港-手动"
-      - "🇹🇼 台湾-手动"
+      - "🇺🇸 美国"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇭🇰 香港"
+      - "🇹🇼 台湾"
       - "☁️ 甲骨文圣何塞"
       - "🌐 手动切换"
       - "DIRECT"
@@ -191,9 +433,9 @@ proxy-groups:
       - "🎯 节点选择"
       - "♻️ 自动选择"
       - "🌐 手动切换"
-      - "🇺🇸 美国-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇯🇵 日本-手动"
+      - "🇺🇸 美国"
+      - "🇸🇬 新加坡"
+      - "🇯🇵 日本"
       - "☁️ 甲骨文圣何塞"
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
@@ -203,11 +445,11 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇭🇰 香港-手动"
-      - "🇹🇼 台湾-手动"
+      - "🇺🇸 美国"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇭🇰 香港"
+      - "🇹🇼 台湾"
       - "🌐 手动切换"
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/YouTube.png"
@@ -217,14 +459,14 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇭🇰 香港-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇺🇸 美国-手动"
-      - "🇬🇧 英国-手动"
-      - "🇩🇪 德国-手动"
-      - "🇫🇷 法国-手动"
-      - "🇦🇺 澳大利亚-手动"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇦🇺 澳大利亚"
       - "🌐 手动切换"
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png"
@@ -234,11 +476,11 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇭🇰 香港-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇯🇵 日本-手动"
-      - "🇹🇼 台湾-手动"
-      - "🇺🇸 美国-手动"
+      - "🇭🇰 香港"
+      - "🇸🇬 新加坡"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇺🇸 美国"
       - "🌐 手动切换"
       - "☁️ 甲骨文圣何塞"
       - "DIRECT"
@@ -251,10 +493,10 @@ proxy-groups:
       - "🎯 节点选择"
       - "♻️ 自动选择"
       - "🌐 手动切换"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇭🇰 香港-手动"
-      - "🇸🇬 新加坡-手动"
+      - "🇺🇸 美国"
+      - "🇯🇵 日本"
+      - "🇭🇰 香港"
+      - "🇸🇬 新加坡"
       - "☁️ 甲骨文圣何塞"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Apple.png"
 
@@ -265,10 +507,10 @@ proxy-groups:
       - "🎯 节点选择"
       - "♻️ 自动选择"
       - "🌐 手动切换"
-      - "🇺🇸 美国-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇯🇵 日本-手动"
-      - "🇭🇰 香港-手动"
+      - "🇺🇸 美国"
+      - "🇸🇬 新加坡"
+      - "🇯🇵 日本"
+      - "🇭🇰 香港"
       - "☁️ 甲骨文圣何塞"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Microsoft.png"
 
@@ -277,12 +519,12 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇭🇰 香港-手动"
-      - "🇰🇷 韩国-手动"
-      - "🇹🇼 台湾-手动"
+      - "🇺🇸 美国"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇭🇰 香港"
+      - "🇰🇷 韩国"
+      - "🇹🇼 台湾"
       - "🌐 手动切换"
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
@@ -292,10 +534,10 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇯🇵 日本-手动"
-      - "🇭🇰 香港-手动"
+      - "🇺🇸 美国"
+      - "🇸🇬 新加坡"
+      - "🇯🇵 日本"
+      - "🇭🇰 香港"
       - "🌐 手动切换"
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/github.png"
@@ -305,10 +547,10 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇭🇰 香港-手动"
+      - "🇺🇸 美国"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇭🇰 香港"
       - "🌐 手动切换"
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png"

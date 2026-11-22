@@ -4,14 +4,15 @@
 
 ## 文件
 
-- `mihomo-override.yaml`：仅包含 `proxy-groups`、`rule-providers`、`rules` 三个顶层区块的分流模板，不是独立节点订阅。
+- `mihomo-override.yaml`：包含 `profile.store-selected`、`proxy-groups`、`rule-providers`、`rules` 的分流覆写模板，不是独立节点订阅。
 - `rules/claude.list`：Claude / Anthropic 高覆盖率规则，按“宁可错杀，不可放过”维护。
 - `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM 等 Google AI 端点。
 
 ## 配置边界：只管分流，不接管运行环境
 
-本模板严格只包含三个顶层区块：
+本模板只包含四个顶层区块：
 
+- `profile.store-selected`：持久化策略组选择，重启后保留用户手动选择。
 - `proxy-groups`：策略组。
 - `rule-providers`：远程域名 / IP 规则集。
 - `rules`：规则匹配顺序和策略组指向。
@@ -21,10 +22,10 @@
 - `dns`、Fake-IP、Fake-IP Filter、nameserver、fallback、nameserver-policy。
 - DNS 劫持、DNS 分流、DNS 上游、Hosts。
 - `tun`、`sniffer`、端口监听、mixed-port、allow-lan。
-- `mode`、`log-level`、IPv6、profile、Fake-IP 持久化。
+- `mode`、`log-level`、IPv6、Fake-IP 持久化（`profile.store-fake-ip`）。
 - QUIC、TCP 并发、指纹、进程匹配等运行参数。
 
-这些功能全部交给 OpenClash 自身设置和 Meta 内核管理。本模板不会再写入第二套 DNS / Fake-IP / 嗅探配置，避免与 OpenClash 的插件设置重复或互相覆盖。
+除 `profile.store-selected` 仅用于保存策略组选择外，其余运行环境功能全部交给 OpenClash 自身设置和 Meta 内核管理。本模板不会写入第二套 DNS / Fake-IP / 嗅探配置，避免与 OpenClash 的插件设置重复或互相覆盖。
 
 ## Sub-Store 使用流程
 
@@ -41,7 +42,7 @@
 
 5. 使用 Sub-Store 生成的**最终配置文件 URL**导入 OpenClash。不要把本仓库的覆写文件 URL 直接当作完整订阅导入。
 
-策略组使用 Mihomo 的 `include-all: true` 从 Sub-Store 最终配置中的节点集合读取节点，不在模板里再写一套机场订阅 URL。Oracle 组只精确匹配最终 YAML 中完整名称 `oracle-vless-reality` / `oracle-hy2-hop`；全局自动选择、全部节点和各国家手动组均按同一组名称排除这两个节点。
+策略组使用 Mihomo 的 `include-all: true` 从 Sub-Store 最终配置中的节点集合读取节点，不在模板里再写一套机场订阅 URL。Oracle 组只精确匹配最终 YAML 中完整名称 `oracle-vless-reality` / `oracle-hy2-hop`；全局自动选择、全部节点、各国家自动测速子组和国家选择组均按同一组名称排除这两个节点。
 
 ## Oracle 节点
 
@@ -56,7 +57,7 @@
 
 ## 国家节点筛选
 
-国家分组只保留手动选择组，不再为每个国家单独创建自动测速组。全局 `♻️ 自动选择` 仍会对除甲骨文外的全部机场节点测速。美国除国家名、旗帜、US/USA 外，还识别洛杉矶、圣何塞、圣克拉拉、旧金山、芝加哥、达拉斯、西雅图、波特兰、纽约、阿什本、弗吉尼亚等常见机房城市。
+每个国家只有一个对用户展示的选择组，名称就是国家本身（例如 `🇭🇰 香港`、`🇯🇵 日本`），不再使用「自动 / 手动」后缀。每个国家组内部有一个带对应国旗的「自动选择」入口，由独立的隐藏 `url-test` 子组测速；同时通过 `include-all` 列出该国全部节点，允许直接手动覆盖。默认优先选择自动入口，手动选择具体节点后不会被自动测速抢回。`profile.store-selected: true` 会保存选择，重启后继续使用。全局 `♻️ 自动选择` 保持原样，继续对除甲骨文外的全部机场节点测速。甲骨文不参与这次国家组改造。美国除国家名、旗帜、US/USA 外，还识别洛杉矶、圣何塞、圣克拉拉、旧金山、芝加哥、达拉斯、西雅图、波特兰、纽约、阿什本、弗吉尼亚等常见机房城市。
 
 筛选正则使用 Go / RE2 兼容语法，不使用 Lookahead / Lookbehind。
 
@@ -102,8 +103,8 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 ## 节点选择与其他分组
 
 - `♻️ 自动选择`：对除 Oracle 外的全部节点做 URL 测速，自动选择延迟较低的节点。
-- `🌐 手动切换`：按国家进入手动节点列表；国家不再设置独立自动测速组，全局测速由 `♻️ 自动选择` 负责。
-- `☁️ 甲骨文圣何塞`：只精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点；不兼容旧名称，不参加美国筛选、国家手动组和全局自动测速。
+- `🌐 手动切换`：按国家进入对应国家组；每个国家组默认走自己的自动测速子组，也可以直接选择该国任意节点。
+- `☁️ 甲骨文圣何塞`：只精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点；不兼容旧名称，不参加美国筛选、国家组和全局自动测速。本次国家组改造不修改 Oracle 策略组。
 - `📺 YouTube`：单独分组。
 - `🎬 流媒体`：统一承接 Netflix 和其他流媒体；Netflix 的专属规则集仍保留用于精准识别，但不再单独建立策略组。
 - `🌍 全球直连`：对应 Sukka 的 `direct.txt`，是“指定不代理”的规则集合，不代表所有海外网站都直连。它包含本地域名 / 路由器域名、部分 PT 站点、学术与文献站点，以及少量进程规则；默认走 `DIRECT`，也允许手动切到代理。
