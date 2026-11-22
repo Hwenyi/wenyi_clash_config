@@ -14,7 +14,7 @@ proxy-groups:
     type: url-test
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -49,110 +49,110 @@ proxy-groups:
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
 
   - name: "🌐 全部节点"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
 
   - name: "🇭🇰 香港-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(香港|Hong[ _-]?Kong|\\bHK\\b|HK[0-9_-]|🇭🇰)"
 
   - name: "🇯🇵 日本-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(日本|Japan|东京|東京|大阪|Osaka|Tokyo|\\bJP\\b|🇯🇵)"
 
   - name: "🇹🇼 台湾-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(台湾|台灣|Taiwan|Taipei|台北|高雄|\\bTW\\b|🇹🇼)"
 
   - name: "🇸🇬 新加坡-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(新加坡|狮城|獅城|Singapore|\\bSG\\b|🇸🇬)"
 
   - name: "🇰🇷 韩国-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(韩国|韓國|南韩|南韓|Korea|Seoul|首尔|首爾|\\bKR\\b|\\bKOR\\b|🇰🇷)"
 
   - name: "🇺🇸 美国-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(美国|美國|United[ _-]?States|America|\\bUSA?\\b|US[0-9_-]|Los[ _-]?Angeles|San[ _-]?Jose|San[ _-]?Francisco|Santa[ _-]?Clara|Fremont|Silicon[ _-]?Valley|San[ _-]?Mateo|Seattle|Portland|Las[ _-]?Vegas|Phoenix|Dallas|Houston|Austin|Chicago|Atlanta|Miami|New[ _-]?York|Ashburn|Washington|Virginia|New[ _-]?Jersey|Boston|Denver|Salt[ _-]?Lake[ _-]?City|San[ _-]?Diego|Sacramento|Reno|Oregon|California|Texas|Illinois|Tampa|Orlando|Detroit|Minneapolis|Kansas[ _-]?City|Charlotte|Raleigh|Pittsburgh|Buffalo|Honolulu|Irvine|El[ _-]?Segundo|Burbank|San[ _-]?Antonio|洛杉矶|圣何塞|圣克拉拉|圣弗朗西斯科|硅谷|西雅图|波特兰|拉斯维加斯|凤凰城|达拉斯|休斯顿|奥斯汀|芝加哥|亚特兰大|迈阿密|纽约|阿什本|华盛顿|弗吉尼亚|新泽西|波士顿|丹佛|盐湖城|圣迭戈|萨克拉门托|雷诺|檀香山|尔湾|🇺🇸)"
 
   - name: "🇬🇧 英国-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(英国|英國|United[ _-]?Kingdom|Great[ _-]?Britain|London|Manchester|Birmingham|Glasgow|Edinburgh|\\bUK\\b|\\bGB\\b|🇬🇧)"
 
   - name: "🇩🇪 德国-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(德国|德國|Germany|Frankfurt|Berlin|Munich|München|Nuremberg|Dusseldorf|Düsseldorf|\\bDE\\b|🇩🇪)"
 
   - name: "🇫🇷 法国-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(法国|法國|France|Paris|Marseille|Lyon|\\bFR\\b|🇫🇷)"
 
   - name: "🇮🇳 印度-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(印度|India|Mumbai|Delhi|Bangalore|Bengaluru|Chennai|Hyderabad|Kolkata|\\bIN\\b|🇮🇳)"
 
   - name: "🇧🇷 巴西-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(巴西|Brazil|São[ _-]?Paulo|Sao[ _-]?Paulo|Rio[ _-]?de[ _-]?Janeiro|\\bBR\\b|🇧🇷)"
 
   - name: "🇦🇺 澳大利亚-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(澳大利亚|澳洲|Australia|Sydney|Melbourne|Brisbane|Perth|Adelaide|\\bAU\\b|🇦🇺)"
 
   - name: "🇨🇦 加拿大-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(加拿大|Canada|Toronto|Vancouver|Montreal|Montréal|Quebec|Calgary|Ottawa|\\bCA\\b|🇨🇦)"
 
   - name: "🇷🇺 俄罗斯-手动"
     type: select
     include-all: true
     exclude-type: "direct|reject"
-    exclude-filter: "(?i)(Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
+    exclude-filter: "(?i)(^reality$|^hy2-hop$|Oracle[-_ ]?(vless-reality|hy2-hop)|甲骨文[-_ ]?(vless-reality|hy2-hop)|Oracle[ _-]?San[ _-]?Jose|甲骨文圣何塞)"
     filter: "(?i)(俄罗斯|俄羅斯|Russia|Moscow|Moskva|St[ ._-]?Petersburg|Saint[ ._-]?Petersburg|\\bRU\\b|🇷🇺)"
 
   - name: "🤖 Claude"
