@@ -1,0 +1,34 @@
+# Google Gemini / Google AI endpoints not covered by the base list
+# Keep this list narrow: do not route all googleapis.com or google.com traffic to Gemini.
+
+# Gemini API / AI Studio
+DOMAIN,aistudio.google.com
+DOMAIN,alkalimakersuite-pa.clients6.google.com
+DOMAIN,alkalicore-pa.clients6.google.com
+DOMAIN,aida.googleapis.com
+DOMAIN,aisandbox-pa.googleapis.com
+DOMAIN,cloudcode-pa.googleapis.com
+DOMAIN,daily-cloudcode-pa.googleapis.com
+DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
+DOMAIN,geller-pa.googleapis.com
+DOMAIN,robinfrontend-pa.googleapis.com
+
+# Gemini / NotebookLM / Google AI product endpoints
+DOMAIN-SUFFIX,notebooklm.google
+DOMAIN-SUFFIX,notebooklm.google.com
+DOMAIN-SUFFIX,gemini.google.com
+DOMAIN-SUFFIX,generativeai.google
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+
+# Google AI coding products
+DOMAIN,jules.google.com
+DOMAIN,jules.googleapis.com
+DOMAIN,antigravity.google
+
+# Keyword fallbacks for changing Gemini endpoints
+DOMAIN-KEYWORD,gemini
+DOMAIN-KEYWORD,generativelanguage
+DOMAIN-KEYWORD,makersuite
+DOMAIN-KEYWORD,notebooklm
+DOMAIN-KEYWORD,aistudio
+DOMAIN-KEYWORD,deepmind
