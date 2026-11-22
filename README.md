@@ -67,7 +67,7 @@
 2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库补充的 AI Studio、NotebookLM、Jules、Antigravity 等 Google AI 端点。
 3. **AI**：OpenAI、ChatGPT、Copilot，以及 clash-rules-cn / Sukka 的综合 AI 规则。
 
-Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom，以及 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；这是按「宁可错杀，不可放过」原则作出的取舍。
+Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom，以及 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；GitHub / GitHubusercontent、npmjs.org 和 googlesource.com 采用后缀匹配，覆盖动态子域名，误匹配范围会更大。这是按「宁可错杀，不可放过」原则作出的取舍。
 
 MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则识别所有不含 `mcp` 关键词的任意 MCP 主机；如果实际使用的 MCP 服务域名不含相关关键词，需要按实际域名补充到 `rules/claude.list`。
 
@@ -83,7 +83,7 @@ Anthropic 官方公布的入站地址段为：
 
 为贯彻高覆盖率原则，同时参考 Net.Coffee 的宽范围建议，实际规则采用：
 
-- `160.79.104.0/21`：比官方入站 `160.79.104.0/23` 更宽，包含该官方网段。
+- `160.79.104.0/21`：比官方入站 `160.79.104.0/23` 更宽，包含该官方网段；Anthropic 也将这个 `/21` 列为出站范围，因此这里有意连同该地址块一起过匹配。
 - `153.61.224.0/22`：官方入站网段。
 - `2607:6bc0::/32`：比官方入站 `2607:6bc0::/48` 更宽，包含该官方网段。
 

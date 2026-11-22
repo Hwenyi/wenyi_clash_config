@@ -62,10 +62,10 @@ DOMAIN-KEYWORD,fathom
 # These are not Claude-exclusive; they are deliberately routed through Claude
 # to keep plugin, update, marketplace, and artifact flows on the same egress.
 DOMAIN,storage.googleapis.com
-DOMAIN,registry.npmjs.org
-DOMAIN,github.com
-DOMAIN,raw.githubusercontent.com
-DOMAIN-KEYWORD,review.googlesource.com
+DOMAIN-SUFFIX,npmjs.org
+DOMAIN-SUFFIX,github.com
+DOMAIN-SUFFIX,githubusercontent.com
+DOMAIN-SUFFIX,googlesource.com
 DOMAIN,formulae.brew.sh
 
 # Optional artifact fonts / libraries documented by Anthropic.
@@ -89,7 +89,8 @@ DOMAIN-KEYWORD,mcp
 #   153.61.224.0/22
 #   2607:6bc0::/48
 # Community high-coverage ranges below intentionally widen coverage:
-#   160.79.104.0/21 contains the official 160.79.104.0/23 inbound range.
+#   160.79.104.0/21 contains the official 160.79.104.0/23 inbound range and is also
+#   listed by Anthropic as an outbound range; routing the whole block is intentional overmatch.
 #   2607:6bc0::/32 contains the official 2607:6bc0::/48 inbound range.
 IP-CIDR,160.79.104.0/21,no-resolve
 IP-CIDR,153.61.224.0/22,no-resolve
