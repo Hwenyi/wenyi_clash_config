@@ -594,7 +594,7 @@ proxy-groups:
 # 节点由 Sub-Store 的源订阅提供；规则提供者只负责规则数据
 # ============================================================
 rule-providers:
-  # Claude：本仓库维护高覆盖率域名 + 静态 CIDR 规则；不依赖 ASN.mmdb
+  # Claude：域名规则由本地 Provider 提供；IP 归属通过 AS399358 匹配，需要 ASN.mmdb
   claude: &Classical
     type: http
     behavior: classical
@@ -838,8 +838,9 @@ rules:
   - RULE-SET,lan_reserved_ip,DIRECT,no-resolve
   - GEOIP,LAN,DIRECT,no-resolve
 
-  # Claude：最高优先级；域名、第三方依赖与静态 CIDR 全部收在 claude.list，不使用 ASN 数据库
+  # Claude：最高优先级；域名走 Provider，Anthropic 网络归属由 AS399358 覆盖
   - RULE-SET,claude,🤖 Claude
+  - IP-ASN,399358,🤖 Claude,no-resolve
 
   # Gemini / Google AI：必须早于综合 AI
   - DOMAIN-SUFFIX,notebooklm.google.com,✨ Gemini
