@@ -638,7 +638,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(香港|Hong[ _-]?Kong|\\bHK\\b|HK[0-9_-]|🇭🇰)"
+    filter: "(?i)(香港|Hong[ _-]?Kong|\\bHK\\b|HK[0-9_-]|\\bHKG\\b|🇭🇰)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -655,7 +655,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(日本|Japan|东京|東京|大阪|Osaka|Tokyo|\\bJP\\b|🇯🇵)"
+    filter: "(?i)(日本|Japan|东京|東京|大阪|Osaka|Tokyo|\\bJP\\b|\\b(NRT|HND|KIX|NGO)\\b|🇯🇵)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -672,7 +672,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(台湾|台灣|Taiwan|Taipei|台北|高雄|\\bTW\\b|🇹🇼)"
+    filter: "(?i)(台湾|台灣|Taiwan|Taipei|台北|高雄|\\bTW\\b|\\b(TPE|KHH)\\b|🇹🇼)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -689,7 +689,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(新加坡|狮城|獅城|Singapore|\\bSG\\b|🇸🇬)"
+    filter: "(?i)(新加坡|狮城|獅城|Singapore|\\bSG\\b|\\bSIN\\b|🇸🇬)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -706,7 +706,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(韩国|韓國|南韩|南韓|Korea|Seoul|首尔|首爾|\\bKR\\b|\\bKOR\\b|🇰🇷)"
+    filter: "(?i)(韩国|韓國|南韩|南韓|Korea|Seoul|首尔|首爾|\\bKR\\b|\\bKOR\\b|\\b(ICN|GMP|PUS)\\b|🇰🇷)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -723,7 +723,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(美国|美國|United[ _-]?States|America|\\bUSA?\\b|US[0-9_-]|Los[ _-]?Angeles|San[ _-]?Jose|San[ _-]?Francisco|Santa[ _-]?Clara|Fremont|Silicon[ _-]?Valley|San[ _-]?Mateo|Seattle|Portland|Las[ _-]?Vegas|Phoenix|Dallas|Houston|Austin|Chicago|Atlanta|Miami|New[ _-]?York|Ashburn|Washington|Virginia|New[ _-]?Jersey|Boston|Denver|Salt[ _-]?Lake[ _-]?City|San[ _-]?Diego|Sacramento|Reno|Oregon|California|Texas|Illinois|Tampa|Orlando|Detroit|Minneapolis|Kansas[ _-]?City|Charlotte|Raleigh|Pittsburgh|Buffalo|Honolulu|Irvine|El[ _-]?Segundo|Burbank|San[ _-]?Antonio|洛杉矶|圣何塞|圣克拉拉|圣弗朗西斯科|硅谷|西雅图|波特兰|拉斯维加斯|凤凰城|达拉斯|休斯顿|奥斯汀|芝加哥|亚特兰大|迈阿密|纽约|阿什本|华盛顿|弗吉尼亚|新泽西|波士顿|丹佛|盐湖城|圣迭戈|萨克拉门托|雷诺|檀香山|尔湾|🇺🇸)"
+    filter: "(?i)(美国|美國|United[ _-]?States|America|\\bUSA?\\b|US[0-9_-]|Los[ _-]?Angeles|San[ _-]?Jose|San[ _-]?Francisco|Santa[ _-]?Clara|Fremont|Silicon[ _-]?Valley|San[ _-]?Mateo|Seattle|Portland|Las[ _-]?Vegas|Phoenix|Dallas|Houston|Austin|Chicago|Atlanta|Miami|New[ _-]?York|Ashburn|Washington|Virginia|New[ _-]?Jersey|Boston|Denver|Salt[ _-]?Lake[ _-]?City|San[ _-]?Diego|Sacramento|Reno|Oregon|California|Texas|Illinois|Tampa|Orlando|Detroit|Minneapolis|Kansas[ _-]?City|Charlotte|Raleigh|Pittsburgh|Buffalo|Honolulu|Irvine|El[ _-]?Segundo|Burbank|San[ _-]?Antonio|\\b(LAX|SJC|SFO|SEA|PDX|LAS|PHX|DFW|IAH|AUS|ORD|ATL|MIA|JFK|EWR|IAD|DCA|BOS|DEN|SLC|SAN|SMF|RNO|HNL|DTW|MSP|MCI|CLT|RDU|PIT|BUF|TPA|MCO|SAT|SNA|BUR|OAK)\\b|洛杉矶|圣何塞|圣克拉拉|圣弗朗西斯科|硅谷|西雅图|波特兰|拉斯维加斯|凤凰城|达拉斯|休斯顿|奥斯汀|芝加哥|亚特兰大|迈阿密|纽约|阿什本|华盛顿|弗吉尼亚|新泽西|波士顿|丹佛|盐湖城|圣迭戈|萨克拉门托|雷诺|檀香山|尔湾|🇺🇸)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -740,7 +740,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(英国|英國|United[ _-]?Kingdom|Great[ _-]?Britain|London|Manchester|Birmingham|Glasgow|Edinburgh|\\bUK\\b|\\bGB\\b|🇬🇧)"
+    filter: "(?i)(英国|英國|United[ _-]?Kingdom|Great[ _-]?Britain|London|Manchester|Birmingham|Glasgow|Edinburgh|\\bUK\\b|\\bGB\\b|\\b(LHR|LGW|MAN|EDI|GLA)\\b|🇬🇧)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -757,7 +757,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(德国|德國|Germany|Frankfurt|Berlin|Munich|München|Nuremberg|Dusseldorf|Düsseldorf|\\bDE\\b|🇩🇪)"
+    filter: "(?i)(德国|德國|Germany|Frankfurt|Berlin|Munich|München|Nuremberg|Dusseldorf|Düsseldorf|\\bDE\\b|\\b(FRA|BER|MUC|DUS)\\b|🇩🇪)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -774,7 +774,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(法国|法國|France|Paris|Marseille|Lyon|\\bFR\\b|🇫🇷)"
+    filter: "(?i)(法国|法國|France|Paris|Marseille|Lyon|\\bFR\\b|\\b(CDG|ORY|MRS|LYS)\\b|🇫🇷)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -791,7 +791,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(印度|India|Mumbai|Delhi|Bangalore|Bengaluru|Chennai|Hyderabad|Kolkata|\\bIN\\b|🇮🇳)"
+    filter: "(?i)(印度|India|Mumbai|Delhi|Bangalore|Bengaluru|Chennai|Hyderabad|Kolkata|\\bIN\\b|\\b(BOM|DEL|BLR|MAA|HYD)\\b|🇮🇳)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -808,7 +808,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(巴西|Brazil|São[ _-]?Paulo|Sao[ _-]?Paulo|Rio[ _-]?de[ _-]?Janeiro|\\bBR\\b|🇧🇷)"
+    filter: "(?i)(巴西|Brazil|São[ _-]?Paulo|Sao[ _-]?Paulo|Rio[ _-]?de[ _-]?Janeiro|\\bBR\\b|\\b(GRU|GIG)\\b|🇧🇷)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -825,7 +825,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(澳大利亚|澳洲|Australia|Sydney|Melbourne|Brisbane|Perth|Adelaide|\\bAU\\b|🇦🇺)"
+    filter: "(?i)(澳大利亚|澳洲|Australia|Sydney|Melbourne|Brisbane|Perth|Adelaide|\\bAU\\b|\\b(SYD|MEL|BNE|PER|ADL)\\b|🇦🇺)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -842,7 +842,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(加拿大|Canada|Toronto|Vancouver|Montreal|Montréal|Quebec|Calgary|Ottawa|\\bCA\\b|🇨🇦)"
+    filter: "(?i)(加拿大|Canada|Toronto|Vancouver|Montreal|Montréal|Quebec|Calgary|Ottawa|\\bCAN\\b|\\b(YYZ|YVR|YUL|YYC|YOW)\\b|🇨🇦)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
@@ -859,7 +859,7 @@ proxy-groups:
     include-all: true
     exclude-type: "direct|reject"
     exclude-filter: "(?i)^Oracle-(vless-reality|hy2-hop)$"
-    filter: "(?i)(俄罗斯|俄羅斯|Russia|Moscow|Moskva|St[ ._-]?Petersburg|Saint[ ._-]?Petersburg|\\bRU\\b|🇷🇺)"
+    filter: "(?i)(俄罗斯|俄羅斯|Russia|Moscow|Moskva|St[ ._-]?Petersburg|Saint[ ._-]?Petersburg|\\bRU\\b|\\b(SVO|LED)\\b|🇷🇺)"
     url: "https://www.gstatic.com/generate_204"
     interval: 300
     tolerance: 50
