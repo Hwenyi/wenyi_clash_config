@@ -1351,7 +1351,7 @@ rules:
   - RULE-SET,netflix,🎞️ 奈飞视频
   - RULE-SET,telegram,✈️ 电报信息
 
-  # Apple / Microsoft 的大陆 CDN 与直连例外先匹配
+  # Apple / Microsoft CDN 与中国区直连例外先匹配
   - RULE-SET,apple_cdn_domainset,🌏 国内直连
   - RULE-SET,apple_cdn_non_ip,🌏 国内直连
   - RULE-SET,apple_cn_non_ip,🌏 国内直连

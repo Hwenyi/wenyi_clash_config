@@ -2,7 +2,7 @@
 # Keep this list narrow: do not route all googleapis.com or google.com traffic to Gemini.
 
 # Gemini API / AI Studio
-DOMAIN,aistudio.google.com
+DOMAIN-SUFFIX,aistudio.google.com
 DOMAIN,alkalimakersuite-pa.clients6.google.com
 DOMAIN,alkalicore-pa.clients6.google.com
 DOMAIN,aida.googleapis.com
@@ -21,9 +21,9 @@ DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 
 # Google AI coding products
-DOMAIN,jules.google.com
+DOMAIN-SUFFIX,jules.google.com
 DOMAIN,jules.googleapis.com
-DOMAIN,antigravity.google
+DOMAIN-SUFFIX,antigravity.google
 
 # Keyword fallbacks for changing Gemini endpoints
 DOMAIN-KEYWORD,gemini
