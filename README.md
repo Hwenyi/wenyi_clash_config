@@ -1,12 +1,30 @@
 # wenyi_clash_config
 
-个人 Mihomo / OpenClash 分流配置，使用 **Sub-Store 组合订阅 + 远程覆写模板** 生成最终配置。
+个人 Mihomo / OpenClash 分流配置，使用 **Sub-Store 组合订阅 + 纯分流覆写模板** 生成最终配置。
 
 ## 文件
 
-- `mihomo-override.yaml`：Sub-Store 使用的 Mihomo 远程覆写模板，不是独立节点订阅。
+- `mihomo-override.yaml`：仅包含 `proxy-groups`、`rule-providers`、`rules` 三个顶层区块的分流模板，不是独立节点订阅。
 - `rules/claude.list`：Claude / Anthropic 高覆盖率规则，按“宁可错杀，不可放过”维护。
 - `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM 等 Google AI 端点。
+
+## 配置边界：只管分流，不接管运行环境
+
+本模板严格只包含三个顶层区块：
+
+- `proxy-groups`：策略组。
+- `rule-providers`：远程域名 / IP 规则集。
+- `rules`：规则匹配顺序和策略组指向。
+
+模板不包含也不覆盖以下配置：
+
+- `dns`、Fake-IP、Fake-IP Filter、nameserver、fallback、nameserver-policy。
+- DNS 劫持、DNS 分流、DNS 上游、Hosts。
+- `tun`、`sniffer`、端口监听、mixed-port、allow-lan。
+- `mode`、`log-level`、IPv6、profile、Fake-IP 持久化。
+- QUIC、TCP 并发、指纹、进程匹配等运行参数。
+
+这些功能全部交给 OpenClash 自身设置和 Meta 内核管理。本模板不会再写入第二套 DNS / Fake-IP / 嗅探配置，避免与 OpenClash 的插件设置重复或互相覆盖。
 
 ## Sub-Store 使用流程
 
@@ -40,7 +58,7 @@
 
 ## AI 分流优先级
 
-1. **Claude**：本仓库规则 + 官方 Anthropic 入站 IP + ASN + NTP。
+1. **Claude**：本仓库规则 + 官方 Anthropic 入站 IP + ASN。
 2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库补充的 AI Studio、NotebookLM、Jules、Antigravity 等 Google AI 端点。
 3. **AI**：OpenAI、ChatGPT、Copilot，以及 clash-rules-cn / Sukka 的综合 AI 规则。
 
@@ -57,8 +75,6 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 - IPv6：`2607:6bc0::/48`
 
 另参考 Net.Coffee 加入 `AS399358` 作为补充。没有把 Anthropic 官方文档中的出站网段当作客户端访问 Claude 的目标 IP：出站地址用于 Anthropic 向外部 MCP 服务发起请求，语义不同。
-
-`GEOSITE,category-ntp` 也被送入 Claude 组，是为了覆盖 Net.Coffee 提到的 NTP / 时区一致性场景。它会影响设备的 NTP 流量；如果你不希望 NTP 使用 Claude 策略组，可以删除这条规则。
 
 ## OpenClash「绕过中国大陆」
 
@@ -92,3 +108,10 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 ## 漏网之鱼的工作原理
 
 `🐟 漏网之鱼` 不是额外的域名清单，而是最后一条 `MATCH` 规则。前面所有规则都没有命中的连接，才会落到这里。默认走 `🎯 节点选择`，也可以手动切成 DIRECT。它的作用是给未知流量一个明确、可控的兜底出口，避免流量因为没有匹配规则而行为不确定。
+
+
+## OpenClash DNS / Fake-IP 设置
+
+OpenClash 的运行模式、DNS 劫持、Dnsmasq 转发、DNS 分流、嗅探、QUIC 禁用和大陆 IP 绕过，均由 OpenClash 插件设置管理。使用本模板时，不需要在模板中再配置一遍，也不需要为了本模板额外开启 Fake-IP Filter、Nameserver-Policy 或自定义上游 DNS。
+
+如果你已经在 OpenClash 中配置好 DNS 和嗅探，保持现有设置即可。模板没有 `dns` / `sniffer` / `tun` 区块，不会主动覆盖这些选项。
