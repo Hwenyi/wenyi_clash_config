@@ -104,14 +104,20 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 - `♻️ 自动选择`：对除 Oracle 外的全部节点做 URL 测速，自动选择延迟较低的节点。
 - `🌐 手动切换`：按国家进入手动节点列表；国家不再设置独立自动测速组，全局测速由 `♻️ 自动选择` 负责。
 - `☁️ 甲骨文圣何塞`：只精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点；不兼容旧名称，不参加美国筛选、国家手动组和全局自动测速。
-- `📺 YouTube`、`🎞️ 奈飞视频`：分别优先匹配，剩余流媒体进入 `🎬 流媒体`。
-- `🌍 全球直连`：只对应 Sukka 的 `direct.txt` 清单，不代表所有海外网站都直连。
+- `📺 YouTube`：单独分组。
+- `🎬 流媒体`：统一承接 Netflix 和其他流媒体；Netflix 的专属规则集仍保留用于精准识别，但不再单独建立策略组。
+- `🌍 全球直连`：对应 Sukka 的 `direct.txt`，是“指定不代理”的规则集合，不代表所有海外网站都直连。它包含本地域名 / 路由器域名、部分 PT 站点、学术与文献站点，以及少量进程规则；默认走 `DIRECT`，也允许手动切到代理。
+  - 这组的价值是给这些特定目标保留一个统一的手动出口：平时直连，遇到特定网络环境直连失败时可以临时切代理。
+  - 你已经有更靠前的局域网、私有地址和国内域名直连规则；这些规则会先命中，不会依赖「全球直连」组。
+  - Sukka 的 `direct.txt` 还包含 `PROCESS-NAME` 条目。OpenClash 运行在路由器上时，通常无法识别其他 LAN 设备内部的应用进程；这部分不能当作手机 / 电脑应用级分流，域名规则才是主要作用。
 - 国内软件、国内域名、Apple / Microsoft CDN 等指定规则直接指向 `DIRECT`，不再额外设置「国内直连」策略组。
 - `🛑 广告拦截`：默认 REJECT，可在组内切换 REJECT-DROP、DIRECT 或节点选择。
  
 ## 漏网之鱼的工作原理
 
 `🐟 漏网之鱼` 不是额外的域名清单，而是最后一条 `MATCH` 规则。前面所有规则都没有命中的连接，才会落到这里。默认走 `🎯 节点选择`，也可以手动切成 DIRECT。它的作用是给未知流量一个明确、可控的兜底出口，避免流量因为没有匹配规则而行为不确定。
+
+「全球直连」与「漏网之鱼」不是一回事：前者只处理 Sukka `direct.txt` 中明确列出的目标；后者处理所有前置规则都没有匹配到的剩余流量。前者是一个有限清单，后者是最后的兜底规则。
 
 
 ## OpenClash DNS / Fake-IP 设置
@@ -121,11 +127,12 @@ OpenClash 的运行模式、DNS 劫持、Dnsmasq 转发、DNS 分流、嗅探、
 如果你已经在 OpenClash 中配置好 DNS 和嗅探，保持现有设置即可。模板没有 `dns` / `sniffer` / `tun` 区块，不会主动覆盖这些选项。
 
 
-## Claude / Gemini 图标
+## 策略组图标
 
-Claude 和 Gemini 策略组图标使用 [Lobe Icons](https://github.com/lobehub/lobe-icons) 提供的彩色 SVG CDN：
-
-- Claude：`https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg`
-- Gemini：`https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg`
-
-使用 Lobe Icons 官方 [CDN Usage](https://github.com/lobehub/lobe-icons#-cdn-usage) 方式引用静态 SVG。
+- Claude 和 Gemini：使用 [Lobe Icons](https://github.com/lobehub/lobe-icons) 的彩色 SVG CDN。
+  - Claude：`https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg`
+  - Gemini：`https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg`
+- 流媒体、游戏平台、文件下载：使用 [Koolson/Qure](https://github.com/Koolson/Qure) 的语义化彩色图标，避免把 Netflix / Steam 品牌图标误当成整个分类。
+  - 流媒体：`https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png`
+  - 游戏平台：`https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png`
+  - 文件下载：`https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png`

@@ -212,21 +212,6 @@ proxy-groups:
       - "DIRECT"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/YouTube.png"
 
-  - name: "🎞️ 奈飞视频"
-    type: select
-    proxies:
-      - "🎯 节点选择"
-      - "🇺🇸 美国-手动"
-      - "🇯🇵 日本-手动"
-      - "🇸🇬 新加坡-手动"
-      - "🇭🇰 香港-手动"
-      - "🇹🇼 台湾-手动"
-      - "🇦🇺 澳大利亚-手动"
-      - "🌐 手动切换"
-      - "☁️ 甲骨文圣何塞"
-      - "DIRECT"
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Netflix.png"
-
   - name: "🎬 流媒体"
     type: select
     proxies:
@@ -242,7 +227,7 @@ proxy-groups:
       - "🇦🇺 澳大利亚-手动"
       - "🌐 手动切换"
       - "DIRECT"
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Netflix.png"
+    icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png"
 
   - name: "✈️ 电报信息"
     type: select
@@ -300,7 +285,7 @@ proxy-groups:
       - "🇹🇼 台湾-手动"
       - "🌐 手动切换"
       - "DIRECT"
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Steam.png"
+    icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
 
   - name: "⌨️ GitHub"
     type: select
@@ -326,7 +311,7 @@ proxy-groups:
       - "🇭🇰 香港-手动"
       - "🌐 手动切换"
       - "DIRECT"
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Steam.png"
+    icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png"
 
   - name: "🌍 全球直连"
     type: select
@@ -624,9 +609,9 @@ rules:
   - RULE-SET,reject_non_ip_no_drop,🛑 广告拦截
   - RULE-SET,reject_ip,🛑 广告拦截,no-resolve
 
-  # 独立应用与服务
+  # YouTube 独立分组；Netflix 规则与其他流媒体统一进入流媒体组
   - RULE-SET,youtube,📺 YouTube
-  - RULE-SET,netflix,🎞️ 奈飞视频
+  - RULE-SET,netflix,🎬 流媒体
   - RULE-SET,telegram,✈️ 电报信息
 
   # Apple / Microsoft CDN 与中国区直连例外先匹配
@@ -649,7 +634,7 @@ rules:
   - RULE-SET,download_domainset,📥 文件下载
   - RULE-SET,download_non_ip,📥 文件下载
 
-  # 其他流媒体：YouTube / Netflix 已在前面单独命中
+  # 其余流媒体规则进入同一个流媒体策略组
   - RULE-SET,stream_non_ip,🎬 流媒体
   - RULE-SET,stream_ip,🎬 流媒体
 
