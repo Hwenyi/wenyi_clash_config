@@ -67,7 +67,9 @@
 2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库维护的 Google AI / Antigravity 补充规则，整合 VPSDance/ai-proxy-rules 的 Google AI provider（Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等端点）。
 3. **AI**：OpenAI、ChatGPT、Copilot，以及 clash-rules-cn / Sukka 的综合 AI 规则。
 
-Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom，以及 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；GitHub / GitHubusercontent、npmjs.org 和 googlesource.com 采用后缀匹配，覆盖动态子域名，误匹配范围会更大。这是按「宁可错杀，不可放过」原则作出的取舍。
+Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 `antspace.dev`、`modelcontextprotocol.com` / `.io` / `.net` / `.org`，以及 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom、GrowthBook 和其他社区收集的第三方依赖；同时覆盖 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；GitHub / GitHubusercontent、npmjs.org 和 googlesource.com 采用后缀匹配，覆盖动态子域名，误匹配范围会更大。这是按「宁可错杀，不可放过」原则作出的取舍。
+
+参考 VPSDance/ai-proxy-rules 的 Anthropic provider，本仓库额外纳入以下 12 条域名规则：`antspace.dev`、`modelcontextprotocol.com`、`modelcontextprotocol.io`、`modelcontextprotocol.net`、`modelcontextprotocol.org`、`cdn.growthbook.io`、`ant.dev`、`interface.feedback`、`lcicat.org`、`lcicollections.org`、`muthos.com`、`sillylittleguy.org`。其中后 7 条属于上游收集的第三方依赖，并不意味着这些域名由 Anthropic 独占；按高覆盖策略，仍统一送入 Claude 策略组。只采纳域名规则，不采纳上游 `IP-ASN,399358`，因此不引入 ASN.mmdb；IP 匹配继续使用本仓库维护的静态 CIDR。
 
 MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则识别所有不含 `mcp` 关键词的任意 MCP 主机；如果实际使用的 MCP 服务域名不含相关关键词，需要按实际域名补充到 `rules/claude.list`。
 
@@ -108,7 +110,7 @@ Anthropic 官方公布的入站地址段为：
 - [clash-rules-cn](https://github.com/mcxiaochenn/clash-rules-cn)：国内直连、常见软件、AI、GFWList、广告、私有域名等聚合规则。
 - [Sukka Ruleset](https://ruleset.skk.moe/)：AI、Apple、Microsoft、流媒体、国内直连、全球直连、广告、下载等规则。
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)：Gemini / OpenAI / Copilot、YouTube、Netflix、Telegram、Apple、Microsoft、Game、GitHub 等应用规则；Claude 使用本仓库的高覆盖率专属规则。
-- [VPSDance/ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules)：Google AI provider 的 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等域名规则；本仓库将域名规则整合进 Gemini 补充列表，不使用其 PROCESS-NAME 规则。
+- [VPSDance/ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules)：Anthropic provider 作为 Claude 核心域名及第三方依赖的补充来源（仅采纳 12 条域名规则，不采纳 `IP-ASN`）；Google AI provider 提供 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等域名规则。本仓库将 Google AI 域名规则整合进 Gemini 补充列表，不使用其 `PROCESS-NAME` 规则。
 
 ## 关于旧模板中的节点 URL
 
