@@ -29,7 +29,7 @@
 ## Sub-Store 使用流程
 
 1. 在 Sub-Store 中准备一个源订阅或组合订阅，确保其中包含你需要的机场节点，以及 Oracle 两个节点。
-2. 你已在 3X-UI 上游将两个节点名称改为 `oracle-vless-reality` / `oracle-hy2-hop`。刷新 Sub-Store 上游订阅后，检查最终 YAML 的 `proxies[].name` 是否同步为这两个名称。策略组按这两个名称精确匹配，并兼容此前的 `reality` / `hy2-hop` 和中文别名。注意：Sub-Store 列表中的显示名称不一定等于最终 YAML 的 `proxies[].name`，应以最终 YAML 为准。
+2. 你已在 3X-UI 上游将两个节点名称改为 `oracle-vless-reality` / `oracle-hy2-hop`。刷新 Sub-Store 上游订阅后，检查最终 YAML 的 `proxies[].name` 是否同步为这两个名称。策略组只精确匹配这两个完整名称；旧名称、中文别名或其他仅包含 `oracle` 的节点都不会入组。注意：Sub-Store 列表中的显示名称不一定等于最终 YAML 的 `proxies[].name`，应以最终 YAML 为准。
 3. 在 Sub-Store 的「文件」中创建 Mihomo 配置，**Source 选择包含机场和甲骨文节点的 Collection，并启用 `Add Proxies`（添加节点）**，确保集合里的节点实际写入最终配置的 `proxies:` 区块；然后使用远程覆写。
 4. 远程覆写 URL：
 
@@ -37,23 +37,22 @@
 
 
 
-如果甲骨文策略组仍为空，先打开 Sub-Store 最新生成的最终 YAML，检查 `proxies[].name`。预期名称是 `oracle-vless-reality` 和 `oracle-hy2-hop`。如果仍然显示 `reality` / `hy2-hop`，说明 3X-UI 的上游改名尚未传递到 Sub-Store 最终配置，或订阅仍使用旧缓存 / 显示名称映射；先刷新上游订阅并重新生成。若最终 YAML 已是两个新名称但策略组仍为空，再确认远程覆写已刷新且 OpenClash 已重新加载最新配置。策略组显示 `COMPATIBLE` 时，表示筛选后没有成员；这是 Mihomo 对空策略组的默认回退值，不代表甲骨文节点已经被选中。
+如果甲骨文策略组仍为空，先打开 Sub-Store 最新生成的最终 YAML，检查 `proxies[].name`。必须分别是 `oracle-vless-reality` 和 `oracle-hy2-hop`；如果仍然显示 `reality` / `hy2-hop` 或其他名称，精确筛选会故意不匹配，先刷新 3X-UI 上游订阅并重新生成。若最终 YAML 已是两个指定名称但策略组仍为空，再确认远程覆写已刷新且 OpenClash 已重新加载最新配置。策略组显示 `COMPATIBLE` 时，表示筛选后没有成员；这是 Mihomo 对空策略组的默认回退值，不代表甲骨文节点已经被选中。
 
 5. 使用 Sub-Store 生成的**最终配置文件 URL**导入 OpenClash。不要把本仓库的覆写文件 URL 直接当作完整订阅导入。
 
-策略组使用 Mihomo 的 `include-all: true` 从 Sub-Store 最终配置中的节点集合读取节点，不在模板里再写一套机场订阅 URL。Oracle 组精确匹配最终 YAML 中的 `reality` / `hy2-hop`，并兼容旧 Oracle / 中文别名；全局自动选择、全部节点和各国家手动组均排除这两个节点。
+策略组使用 Mihomo 的 `include-all: true` 从 Sub-Store 最终配置中的节点集合读取节点，不在模板里再写一套机场订阅 URL。Oracle 组只精确匹配最终 YAML 中完整名称 `oracle-vless-reality` / `oracle-hy2-hop`；全局自动选择、全部节点和各国家手动组均按同一组名称排除这两个节点。
 
 ## Oracle 节点
 
-`☁️ 甲骨文圣何塞` 按 Sub-Store 最终生成 YAML 中的 `proxies[].name` 匹配。你已将 3X-UI 上游节点名称调整为：
+`☁️ 甲骨文圣何塞` 只按 Sub-Store 最终生成 YAML 中的 `proxies[].name` 精确匹配以下两个完整名称：
 
 | 位置 | VLESS Reality | Hysteria2 |
 |---|---|---|
 | 3X-UI 上游节点名称 | `oracle-vless-reality` | `oracle-hy2-hop` |
-| 最终 YAML 预期 `proxies[].name` | `oracle-vless-reality` | `oracle-hy2-hop` |
-| 旧名称兼容 | `reality`、`甲骨文-vless-reality` | `hy2-hop`、`甲骨文-hy2-hop` |
+| 最终 YAML 必须出现的 `proxies[].name` | `oracle-vless-reality` | `oracle-hy2-hop` |
 
-当前策略组正则以完整名称锚定匹配 `oracle-vless-reality` 和 `oracle-hy2-hop`，同时兼容上表中的旧名称及旧的圣何塞命名，避免误把机场中仅仅包含 `reality` / `hy2-hop` 字样的其他节点收进来。最终是否匹配成功，以 Sub-Store 最新生成 YAML 的 `proxies[].name` 为准；列表显示标签不能代替这个检查。
+筛选正则为 `(?i)^oracle-(vless-reality|hy2-hop)$`。它只接受这两个完整节点名（大小写不敏感），不接受旧名称、中文别名或其他 Oracle 节点名，也不会因为其他节点名称中包含 `oracle` 就将其纳入。若上游改名后最终 YAML 没有同步更新，策略组将保持空组；以最终 YAML 的 `proxies[].name` 为准排查。
 
 ## 国家节点筛选
 
@@ -104,7 +103,7 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 
 - `♻️ 自动选择`：对除 Oracle 外的全部节点做 URL 测速，自动选择延迟较低的节点。
 - `🌐 手动切换`：按国家进入手动节点列表；国家不再设置独立自动测速组，全局测速由 `♻️ 自动选择` 负责。
-- `☁️ 甲骨文圣何塞`：精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点，同时兼容旧名称；不参加美国筛选、国家手动组和全局自动测速。
+- `☁️ 甲骨文圣何塞`：只精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点；不兼容旧名称，不参加美国筛选、国家手动组和全局自动测速。
 - `📺 YouTube`、`🎞️ 奈飞视频`：分别优先匹配，剩余流媒体进入 `🎬 流媒体`。
 - `🌍 全球直连`：只对应 Sukka 的 `direct.txt` 清单，不代表所有海外网站都直连。
 - 国内软件、国内域名、Apple / Microsoft CDN 等指定规则直接指向 `DIRECT`，不再额外设置「国内直连」策略组。
