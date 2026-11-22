@@ -29,9 +29,11 @@
 ## Sub-Store 使用流程
 
 1. 在 Sub-Store 中准备一个源订阅或组合订阅，确保其中包含你需要的机场节点，以及 Oracle 两个节点。
-2. 确认 Sub-Store 输出的节点名称原样保留：
-   - `Oracle-vless-reality`
-   - `Oracle-hy2-hop`
+2. 确认 Sub-Store 输出的两个甲骨文节点已加入最终配置。推荐名称：
+   - `🛰️ 甲骨文圣何塞 | VLESS Reality`
+   - `🛰️ 甲骨文圣何塞 | Hysteria2`
+
+   甲骨文策略组按 `甲骨文圣何塞` 前缀筛选，同时兼容旧名称 `Oracle-vless-reality` / `Oracle-hy2-hop`。
 3. 在 Sub-Store 的「文件」中创建 Mihomo 配置，选择该组合订阅作为配置来源，并使用远程覆写。
 4. 远程覆写 URL：
 
@@ -39,20 +41,21 @@
 
 5. 使用 Sub-Store 生成的**最终配置文件 URL**导入 OpenClash。不要把本仓库的覆写文件 URL 直接当作完整订阅导入。
 
-策略组使用 Mihomo 的 `include-all: true` 从 Sub-Store 最终配置中的节点集合读取节点，不在模板里再写一套机场订阅 URL。Oracle 组通过节点名称精确筛选，因此不会混入美国节点或全局自动测速组。
+策略组使用 Mihomo 的 `include-all: true` 从 Sub-Store 最终配置中的节点集合读取节点，不在模板里再写一套机场订阅 URL。Oracle 组按 `甲骨文圣何塞` 前缀或旧 Oracle 节点名筛选；全局自动选择、全部节点和各国家手动组均排除这些节点。
 
 ## Oracle 节点
 
-`☁️ 甲骨文圣何塞` 只筛选以下两个精确名称：
+`☁️ 甲骨文圣何塞` 按 `甲骨文圣何塞` 名称前缀筛选两个自建节点，同时兼容旧名称：
 
-- `Oracle-vless-reality`
-- `Oracle-hy2-hop`
+- `🛰️ 甲骨文圣何塞 | VLESS Reality`
+- `🛰️ 甲骨文圣何塞 | Hysteria2`
+- 兼容旧名称：`Oracle-vless-reality`、`Oracle-hy2-hop`
 
-两个节点在同一个独立策略组中，可以在组内分别点选 VLESS + Reality 或 Hysteria 2。美国节点组不会匹配这两个名称。
+两个节点在同一个独立策略组中，可以在组内分别点选 VLESS + Reality 或 Hysteria 2。全局自动选择、全部节点和国家手动组均排除这两个节点。
 
 ## 国家节点筛选
 
-自动测速和手动选择各有一组。美国除国家名、旗帜、US/USA 外，还识别洛杉矶、圣何塞、圣克拉拉、旧金山、芝加哥、达拉斯、西雅图、波特兰、纽约、阿什本、弗吉尼亚等常见机房城市。
+国家分组只保留手动选择组，不再为每个国家单独创建自动测速组。全局 `♻️ 自动选择` 仍会对除甲骨文外的全部机场节点测速。美国除国家名、旗帜、US/USA 外，还识别洛杉矶、圣何塞、圣克拉拉、旧金山、芝加哥、达拉斯、西雅图、波特兰、纽约、阿什本、弗吉尼亚等常见机房城市。
 
 筛选正则使用 Go / RE2 兼容语法，不使用 Lookahead / Lookbehind。
 
@@ -98,11 +101,11 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 ## 节点选择与其他分组
 
 - `♻️ 自动选择`：对除 Oracle 外的全部节点做 URL 测速，自动选择延迟较低的节点。
-- `🌐 手动切换`：按国家进入手动节点列表；每个国家同时提供独立的自动测速组。
-- `☁️ 甲骨文圣何塞`：只包含 Oracle 两个节点，不参加美国筛选和全局自动测速。
+- `🌐 手动切换`：按国家进入手动节点列表；国家不再设置独立自动测速组，全局测速由 `♻️ 自动选择` 负责。
+- `☁️ 甲骨文圣何塞`：按 `甲骨文圣何塞` 前缀筛选两个自建节点，不参加美国筛选、国家手动组和全局自动测速。
 - `📺 YouTube`、`🎞️ 奈飞视频`：分别优先匹配，剩余流媒体进入 `🎬 流媒体`。
 - `🌍 全球直连`：只对应 Sukka 的 `direct.txt` 清单，不代表所有海外网站都直连。
-- `🌏 国内直连`：国内软件、国内域名、Apple / Microsoft CDN 等指定规则进入 DIRECT。
+- 国内软件、国内域名、Apple / Microsoft CDN 等指定规则直接指向 `DIRECT`，不再额外设置「国内直连」策略组。
 - `🛑 广告拦截`：默认 REJECT，可在组内切换 REJECT-DROP、DIRECT 或节点选择。
  
 ## 漏网之鱼的工作原理
@@ -115,3 +118,13 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 OpenClash 的运行模式、DNS 劫持、Dnsmasq 转发、DNS 分流、嗅探、QUIC 禁用和大陆 IP 绕过，均由 OpenClash 插件设置管理。使用本模板时，不需要在模板中再配置一遍，也不需要为了本模板额外开启 Fake-IP Filter、Nameserver-Policy 或自定义上游 DNS。
 
 如果你已经在 OpenClash 中配置好 DNS 和嗅探，保持现有设置即可。模板没有 `dns` / `sniffer` / `tun` 区块，不会主动覆盖这些选项。
+
+
+## Claude / Gemini 图标
+
+Claude 和 Gemini 策略组图标使用 [Lobe Icons](https://github.com/lobehub/lobe-icons) 提供的彩色 SVG CDN：
+
+- Claude：`https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg`
+- Gemini：`https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg`
+
+使用 Lobe Icons 官方 [CDN Usage](https://github.com/lobehub/lobe-icons#-cdn-usage) 方式引用静态 SVG。
