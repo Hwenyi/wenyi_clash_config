@@ -75,9 +75,3 @@ DOMAIN-KEYWORD,aistudio
 DOMAIN-KEYWORD,deepmind
 
 # Broad fallback keywords for dynamically changing Google AI endpoints
-DOMAIN-KEYWORD,gemini
-DOMAIN-KEYWORD,generativelanguage
-DOMAIN-KEYWORD,makersuite
-DOMAIN-KEYWORD,notebooklm
-DOMAIN-KEYWORD,aistudio
-DOMAIN-KEYWORD,deepmind
