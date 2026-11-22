@@ -92,6 +92,11 @@ DOMAIN-KEYWORD,mcp
 #   160.79.104.0/21 contains the official 160.79.104.0/23 inbound range and is also
 #   listed by Anthropic as an outbound range; routing the whole block is intentional overmatch.
 #   2607:6bc0::/32 contains the official 2607:6bc0::/48 inbound range.
+#   2607:6bc0:11::/48 is a separate BGP-announced prefix originated by AS399358 (Anthropic, PBC).
+#   BGP.HE reports the origin as AS399358 and the ROA as signed and valid.
+#   This /48 is already covered by the broader /32 below; it is listed explicitly for provenance.
+#   https://bgp.he.net/net/2607:6bc0:11::/48
 IP-CIDR,160.79.104.0/21,no-resolve
 IP-CIDR,153.61.224.0/22,no-resolve
+IP-CIDR6,2607:6bc0:11::/48,no-resolve
 IP-CIDR6,2607:6bc0::/32,no-resolve

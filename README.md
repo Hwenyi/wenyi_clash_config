@@ -6,7 +6,7 @@
 
 - `mihomo-override.yaml`：包含 `profile.store-selected`、`proxy-groups`、`rule-providers`、`rules` 的分流覆写模板，不是独立节点订阅。
 - `rules/claude.list`：Claude / Anthropic 高覆盖率规则，按“宁可错杀，不可放过”维护。
-- `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM 等 Google AI 端点。
+- `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code 等 Google AI 端点。
 
 ## 配置边界：只管分流，不接管运行环境
 
@@ -64,7 +64,7 @@
 ## AI 分流优先级
 
 1. **Claude**：本仓库高覆盖率规则（核心域名、登录 / API / MCP / CDN、KYC、遥测、客服、Claude Code 插件与 Artifact 依赖、静态 CIDR）；完全不使用 IP-ASN 或 ASN.mmdb。
-2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库补充的 AI Studio、NotebookLM、Jules、Antigravity 等 Google AI 端点。
+2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库维护的 Google AI / Antigravity 补充规则，整合 VPSDance/ai-proxy-rules 的 Google AI provider（Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等端点）。
 3. **AI**：OpenAI、ChatGPT、Copilot，以及 clash-rules-cn / Sukka 的综合 AI 规则。
 
 Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom，以及 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；GitHub / GitHubusercontent、npmjs.org 和 googlesource.com 采用后缀匹配，覆盖动态子域名，误匹配范围会更大。这是按「宁可错杀，不可放过」原则作出的取舍。
@@ -81,11 +81,17 @@ Anthropic 官方公布的入站地址段为：
 - IPv4：`153.61.224.0/22`
 - IPv6：`2607:6bc0::/48`
 
-为贯彻高覆盖率原则，同时参考 Net.Coffee 的宽范围建议，实际规则采用：
+此外，BGP 路由记录显示 Anthropic 的 AS399358 还公告了独立的 IPv6 前缀 `2607:6bc0:11::/48`；BGP.HE 将其 Origin 标记为 AS399358（Anthropic, PBC），并显示 ROA 签名有效。它没有列在 Anthropic 面向 API 用户的固定 IP 文档中，但有独立的 BGP / ASN 归属证据，因此也作为静态规则纳入：
+
+- `2607:6bc0:11::/48`：AS399358 公告的 IPv6 前缀；来源：[BGP.HE 前缀记录](https://bgp.he.net/net/2607%3A6bc0%3A11%3A%3A/48)、[AS399358 公告列表](https://bgp.he.net/AS399358)。
+
+为贯彻高覆盖率原则，同时参考较宽的地址范围，实际规则还保留：
 
 - `160.79.104.0/21`：比官方入站 `160.79.104.0/23` 更宽，包含该官方网段；Anthropic 也将这个 `/21` 列为出站范围，因此这里有意连同该地址块一起过匹配。
 - `153.61.224.0/22`：官方入站网段。
-- `2607:6bc0::/32`：比官方入站 `2607:6bc0::/48` 更宽，包含该官方网段。
+- `2607:6bc0::/32`：比官方入站 `2607:6bc0::/48` 更宽，包含该官方网段，也覆盖上面明确列出的 `2607:6bc0:11::/48`。
+
+因此，`2607:6bc0:11::/48` 在匹配范围上已被 `2607:6bc0::/32` 包含；仍单独列出是为了保留 BGP 公告来源和明确归属记录。这里使用的是静态 CIDR，不会恢复 `IP-ASN` 或 `ASN.mmdb` 依赖。
 
 宽网段会有意覆盖同一地址范围内可能与 Claude 无关的 IP 流量。官方出站网段 `153.61.208.0/20` 不加入客户端目标规则，因为它用于 Anthropic 向外部 MCP 等服务发起连接，不是用户访问 Claude API 的目标地址。
 
@@ -102,6 +108,7 @@ Anthropic 官方公布的入站地址段为：
 - [clash-rules-cn](https://github.com/mcxiaochenn/clash-rules-cn)：国内直连、常见软件、AI、GFWList、广告、私有域名等聚合规则。
 - [Sukka Ruleset](https://ruleset.skk.moe/)：AI、Apple、Microsoft、流媒体、国内直连、全球直连、广告、下载等规则。
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)：Gemini / OpenAI / Copilot、YouTube、Netflix、Telegram、Apple、Microsoft、Game、GitHub 等应用规则；Claude 使用本仓库的高覆盖率专属规则。
+- [VPSDance/ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules)：Google AI provider 的 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等域名规则；本仓库将域名规则整合进 Gemini 补充列表，不使用其 PROCESS-NAME 规则。
 
 ## 关于旧模板中的节点 URL
 

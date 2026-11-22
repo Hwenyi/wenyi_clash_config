@@ -1,31 +1,80 @@
-# Google Gemini / Google AI endpoints not covered by the base list
-# Keep this list narrow: do not route all googleapis.com or google.com traffic to Gemini.
+# Google Gemini / Google AI / Antigravity routing rules
+# Curated from VPSDance/ai-proxy-rules data/providers/google-ai.yaml and rules/clash/google-ai.yaml.
+# Also retains local Gemini-specific endpoints and keyword fallbacks.
+# Router-side domain routing only: upstream PROCESS-NAME rules are intentionally omitted
+# because a router cannot see process names running on LAN clients.
+# Do not wildcard all googleapis.com or google.com; keep this to curated Google AI endpoints.
 
-# Gemini API / AI Studio
-DOMAIN-SUFFIX,aistudio.google.com
-DOMAIN,alkalimakersuite-pa.clients6.google.com
-DOMAIN,alkalicore-pa.clients6.google.com
-DOMAIN,aida.googleapis.com
-DOMAIN,aisandbox-pa.googleapis.com
+# Antigravity product domains and dedicated API endpoints
+DOMAIN-SUFFIX,antigravity.google
+DOMAIN-SUFFIX,antigravity.google.com
+DOMAIN,antigravity.googleapis.com
+DOMAIN,antigravity-pa.googleapis.com
+DOMAIN-SUFFIX,antigravity-unleash.goog
+DOMAIN-KEYWORD,antigravity
 DOMAIN,cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.googleapis.com
 DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
-DOMAIN,geller-pa.googleapis.com
-DOMAIN,robinfrontend-pa.googleapis.com
+DOMAIN,cloudaicompanion.googleapis.com
+DOMAIN,appsgenaiserver-pa.googleapis.com
+DOMAIN,appsgenaiserver-pa.clients.google.com
+DOMAIN,appsgenaiserver-pa.clients6.google.com
 
-# Gemini / NotebookLM / Google AI product endpoints
-DOMAIN-SUFFIX,notebooklm.google
-DOMAIN-SUFFIX,notebooklm.google.com
+# Remaining curated Google AI family endpoints from VPSDance
+DOMAIN-SUFFIX,ai.google.dev
+DOMAIN-SUFFIX,ai.studio
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,bard.google.com
+DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,deepmind.google
+DOMAIN-SUFFIX,gemini.google
 DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,generativeai.google
-DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
-
-# Google AI coding products
+DOMAIN-SUFFIX,generativelanguage.googleapis.com
+DOMAIN-SUFFIX,notebooklm.google
+DOMAIN-SUFFIX,notebooklm.google.com
+DOMAIN,alkalicore-pa.clients6.google.com
+DOMAIN,alkalimakersuite-pa.clients6.google.com
+DOMAIN,geminiweb-pa.clients.google.com
+DOMAIN,geminiweb-pa.clients6.google.com
+DOMAIN,notebooklm-pa.googleapis.com
+DOMAIN,notebooklm.googleapis.com
+DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
+DOMAIN-SUFFIX,aicode.googleapis.com
+DOMAIN-SUFFIX,aida.googleapis.com
+DOMAIN-SUFFIX,aisandbox-pa.googleapis.com
+DOMAIN-SUFFIX,flow.google
+DOMAIN-SUFFIX,flow.google.com
+DOMAIN-SUFFIX,geller-pa.googleapis.com
+DOMAIN-SUFFIX,gemini.gstatic.com
+DOMAIN-SUFFIX,jules.google
 DOMAIN-SUFFIX,jules.google.com
-DOMAIN,jules.googleapis.com
-DOMAIN-SUFFIX,antigravity.google
+DOMAIN-SUFFIX,labs.google
+DOMAIN-SUFFIX,labs.google.com
+DOMAIN-SUFFIX,labstailwind.pa.googleapis.com
+DOMAIN-SUFFIX,makersuite.google.com
+DOMAIN-SUFFIX,notebook.google
+DOMAIN-SUFFIX,notebook.google.com
+DOMAIN-SUFFIX,opal.google
+DOMAIN-SUFFIX,opal.google.com
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+DOMAIN-SUFFIX,robinfrontend-pa.googleapis.com
+DOMAIN-SUFFIX,stitch.withgoogle.com
 
-# Keyword fallbacks for changing Gemini endpoints
+# Existing local Gemini endpoints not present in the upstream provider
+DOMAIN,aida.googleapis.com
+DOMAIN,aisandbox-pa.googleapis.com
+DOMAIN,geller-pa.googleapis.com
+DOMAIN,robinfrontend-pa.googleapis.com
+DOMAIN,jules.googleapis.com
+DOMAIN-KEYWORD,gemini
+DOMAIN-KEYWORD,generativelanguage
+DOMAIN-KEYWORD,makersuite
+DOMAIN-KEYWORD,notebooklm
+DOMAIN-KEYWORD,aistudio
+DOMAIN-KEYWORD,deepmind
+
+# Broad fallback keywords for dynamically changing Google AI endpoints
 DOMAIN-KEYWORD,gemini
 DOMAIN-KEYWORD,generativelanguage
 DOMAIN-KEYWORD,makersuite
