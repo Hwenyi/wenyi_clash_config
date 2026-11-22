@@ -34,10 +34,14 @@
    - `🛰️ 甲骨文圣何塞 | Hysteria2`
 
    甲骨文策略组按 `甲骨文圣何塞` 前缀筛选，同时兼容旧名称 `Oracle-vless-reality` / `Oracle-hy2-hop`。
-3. 在 Sub-Store 的「文件」中创建 Mihomo 配置，选择该组合订阅作为配置来源，并使用远程覆写。
+3. 在 Sub-Store 的「文件」中创建 Mihomo 配置，**Source 选择包含机场和甲骨文节点的 Collection，并启用 `Add Proxies`（添加节点）**，确保集合里的节点实际写入最终配置的 `proxies:` 区块；然后使用远程覆写。
 4. 远程覆写 URL：
 
    `https://raw.githubusercontent.com/Hwenyi/wenyi_clash_config/main/mihomo-override.yaml`
+
+
+
+如果甲骨文策略组仍为空，先打开 Sub-Store 生成的最终 YAML，搜索 `proxies:` 下是否存在上面两条甲骨文节点。若节点不在 `proxies:` 中，说明 Collection 没有把节点注入最终配置，`include-all` / `filter` 无法凭空生成节点；先修正 Source Collection 或 `Add Proxies`。若节点存在但策略组为空，再按最终 YAML 里的真实节点名称调整筛选正则。
 
 5. 使用 Sub-Store 生成的**最终配置文件 URL**导入 OpenClash。不要把本仓库的覆写文件 URL 直接当作完整订阅导入。
 
