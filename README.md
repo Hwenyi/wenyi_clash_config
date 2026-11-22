@@ -63,23 +63,31 @@
 
 ## AI 分流优先级
 
-1. **Claude**：本仓库规则 + 官方 Anthropic 入站 IP + ASN。
+1. **Claude**：本仓库高覆盖率规则（核心域名、登录 / API / MCP / CDN、KYC、遥测、客服、Claude Code 插件与 Artifact 依赖、静态 CIDR）；完全不使用 IP-ASN 或 ASN.mmdb。
 2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库补充的 AI Studio、NotebookLM、Jules、Antigravity 等 Google AI 端点。
 3. **AI**：OpenAI、ChatGPT、Copilot，以及 clash-rules-cn / Sukka 的综合 AI 规则。
 
-Claude 规则有意把以下共享第三方服务也纳入 Claude：Sentry、Statsig、Datadog、Sift、Intercom、Fathom，以及包含 `mcp` 关键词的域名。这些服务也可能被其他应用使用，因此可能把其他应用的遥测或客服流量一起送入 Claude 策略组；这是本配置按用户要求采取的主动过匹配策略。
+Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom，以及 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；这是按「宁可错杀，不可放过」原则作出的取舍。
 
 MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则识别所有不含 `mcp` 关键词的任意 MCP 主机；如果实际使用的 MCP 服务域名不含相关关键词，需要按实际域名补充到 `rules/claude.list`。
 
-### Claude IP 范围
+### Claude IP 范围（不使用 ASN）
 
-配置使用 Anthropic 官方公布的**入站**地址段：
+所有 IP 规则已集中放入 `rules/claude.list`，由现有 `RULE-SET,claude` 统一送入 Claude 策略组。配置不使用 `IP-ASN`，也不需要 `ASN.mmdb`。
+
+Anthropic 官方公布的入站地址段为：
 
 - IPv4：`160.79.104.0/23`
 - IPv4：`153.61.224.0/22`
 - IPv6：`2607:6bc0::/48`
 
-另参考 Net.Coffee 加入 `AS399358` 作为补充。没有把 Anthropic 官方文档中的出站网段当作客户端访问 Claude 的目标 IP：出站地址用于 Anthropic 向外部 MCP 服务发起请求，语义不同。
+为贯彻高覆盖率原则，同时参考 Net.Coffee 的宽范围建议，实际规则采用：
+
+- `160.79.104.0/21`：比官方入站 `160.79.104.0/23` 更宽，包含该官方网段。
+- `153.61.224.0/22`：官方入站网段。
+- `2607:6bc0::/32`：比官方入站 `2607:6bc0::/48` 更宽，包含该官方网段。
+
+宽网段会有意覆盖同一地址范围内可能与 Claude 无关的 IP 流量。官方出站网段 `153.61.208.0/20` 不加入客户端目标规则，因为它用于 Anthropic 向外部 MCP 等服务发起连接，不是用户访问 Claude API 的目标地址。
 
 ## OpenClash「绕过中国大陆」
 
