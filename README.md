@@ -63,40 +63,27 @@
 
 ## AI 分流优先级
 
-1. **Claude**：本仓库高覆盖率规则（核心域名、登录 / API / MCP / CDN、KYC、遥测、客服、Claude Code 插件与 Artifact 依赖、静态 CIDR）；完全不使用 IP-ASN 或 ASN.mmdb。
+1. **Claude**：本仓库高覆盖率域名规则 + `IP-ASN,399358`（Anthropic, PBC）；IP 归属由 Mihomo 的 ASN 数据库识别。
 2. **Gemini**：blackmatrix7 Gemini 规则 + 本仓库维护的 Google AI / Antigravity 补充规则，整合 VPSDance/ai-proxy-rules 的 Google AI provider（Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等端点）。
 3. **AI**：OpenAI、ChatGPT、Copilot，以及 clash-rules-cn / Sukka 的综合 AI 规则。
 
 Claude 规则有意采取主动过匹配：除 Anthropic / Claude / MCP 核心域名外，还纳入 `antspace.dev`、`modelcontextprotocol.com` / `.io` / `.net` / `.org`，以及 Persona KYC、Google Maps、Sentry、Statsig、Datadog、Sift、Intercom、Fathom、GrowthBook 和其他社区收集的第三方依赖；同时覆盖 Claude Code 官方网络要求中的 Google Storage、npm Registry、GitHub、raw.githubusercontent.com、Gerrit、Homebrew 和 Artifact 字体 / CDN 依赖。这些第三方服务可能被其他应用使用，因此会有意把部分非 Claude 流量一起送入 Claude 策略组；GitHub / GitHubusercontent、npmjs.org 和 googlesource.com 采用后缀匹配，覆盖动态子域名，误匹配范围会更大。这是按「宁可错杀，不可放过」原则作出的取舍。
 
-参考 VPSDance/ai-proxy-rules 的 Anthropic provider，本仓库额外纳入以下 12 条域名规则：`antspace.dev`、`modelcontextprotocol.com`、`modelcontextprotocol.io`、`modelcontextprotocol.net`、`modelcontextprotocol.org`、`cdn.growthbook.io`、`ant.dev`、`interface.feedback`、`lcicat.org`、`lcicollections.org`、`muthos.com`、`sillylittleguy.org`。其中后 7 条属于上游收集的第三方依赖，并不意味着这些域名由 Anthropic 独占；按高覆盖策略，仍统一送入 Claude 策略组。只采纳域名规则，不采纳上游 `IP-ASN,399358`，因此不引入 ASN.mmdb；IP 匹配继续使用本仓库维护的静态 CIDR。
+参考 VPSDance/ai-proxy-rules 的 Anthropic provider，本仓库额外纳入以下 12 条域名规则：`antspace.dev`、`modelcontextprotocol.com`、`modelcontextprotocol.io`、`modelcontextprotocol.net`、`modelcontextprotocol.org`、`cdn.growthbook.io`、`ant.dev`、`interface.feedback`、`lcicat.org`、`lcicollections.org`、`muthos.com`、`sillylittleguy.org`。其中后 7 条属于上游收集的第三方依赖，并不意味着这些域名由 Anthropic 独占；按高覆盖策略，仍统一送入 Claude 策略组。
 
 MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则识别所有不含 `mcp` 关键词的任意 MCP 主机；如果实际使用的 MCP 服务域名不含相关关键词，需要按实际域名补充到 `rules/claude.list`。
 
-### Claude IP 范围（不使用 ASN）
+### Claude IP 匹配（AS399358）
 
-所有 IP 规则已集中放入 `rules/claude.list`，由现有 `RULE-SET,claude` 统一送入 Claude 策略组。配置不使用 `IP-ASN`，也不需要 `ASN.mmdb`。
+Claude 的 IP 级补充匹配恢复为：
 
-Anthropic 官方公布的入站地址段为：
+```yaml
+IP-ASN,399358,🤖 Claude,no-resolve
+```
 
-- IPv4：`160.79.104.0/23`
-- IPv4：`153.61.224.0/22`
-- IPv6：`2607:6bc0::/48`
+AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实，`2607:6bc0:11::/48` 的 Origin ASN 为 AS399358，ROA 状态有效。恢复 ASN 匹配后，Mihomo 会按目标 IP 的 ASN 归属匹配 Anthropic 公告的地址，而不是依赖手工维护的 CIDR 列表。
 
-此外，BGP 路由记录显示 Anthropic 的 AS399358 还公告了独立的 IPv6 前缀 `2607:6bc0:11::/48`；BGP.HE 将其 Origin 标记为 AS399358（Anthropic, PBC），并显示 ROA 签名有效。它没有列在 Anthropic 面向 API 用户的固定 IP 文档中，但有独立的 BGP / ASN 归属证据，因此也作为静态规则纳入：
-
-- `2607:6bc0:11::/48`：AS399358 公告的 IPv6 前缀；来源：[BGP.HE 前缀记录](https://bgp.he.net/net/2607%3A6bc0%3A11%3A%3A/48)、[AS399358 公告列表](https://bgp.he.net/AS399358)。
-
-为贯彻高覆盖率原则，同时参考较宽的地址范围，实际规则还保留：
-
-- `160.79.104.0/21`：比官方入站 `160.79.104.0/23` 更宽，包含该官方网段；Anthropic 也将这个 `/21` 列为出站范围，因此这里有意连同该地址块一起过匹配。
-- `153.61.224.0/22`：官方入站网段。
-- `2607:6bc0::/32`：比官方入站 `2607:6bc0::/48` 更宽，包含该官方网段，也覆盖上面明确列出的 `2607:6bc0:11::/48`。
-
-因此，`2607:6bc0:11::/48` 在匹配范围上已被 `2607:6bc0::/32` 包含；仍单独列出是为了保留 BGP 公告来源和明确归属记录。这里使用的是静态 CIDR，不会恢复 `IP-ASN` 或 `ASN.mmdb` 依赖。
-
-宽网段会有意覆盖同一地址范围内可能与 Claude 无关的 IP 流量。官方出站网段 `153.61.208.0/20` 不加入客户端目标规则，因为它用于 Anthropic 向外部 MCP 等服务发起连接，不是用户访问 Claude API 的目标地址。
-
+因此，`rules/claude.list` 只维护域名规则；Claude 的 IP 级匹配单独放在主 `rules:` 中，避免将 `IP-ASN` 混入域名 Provider。该规则需要可用的 ASN 数据库（`ASN.mmdb`），OpenClash 小闪存模式可将相关数据放在内存中。
 ## OpenClash「绕过中国大陆」
 
 本模板不再加载 `china-ip` / `domestic-ip` 规则集，也不写 `GEOIP,CN,DIRECT`。如果 OpenClash 已启用「绕过中国大陆」，保持开启即可。该功能会在插件层把符合条件的大陆目标 IP 流量绕过内核；因此本模板不重复维护 `china-ip` / `domestic-ip`，也不写 `GEOIP,CN,DIRECT`。
