@@ -27,6 +27,11 @@ DOMAIN-SUFFIX,claude.app
 DOMAIN-SUFFIX,claudemcpclient.com
 DOMAIN-SUFFIX,claudemcpcontent.com
 DOMAIN-SUFFIX,claudeusercontent.com
+DOMAIN-SUFFIX,antspace.dev
+DOMAIN-SUFFIX,modelcontextprotocol.com
+DOMAIN-SUFFIX,modelcontextprotocol.io
+DOMAIN-SUFFIX,modelcontextprotocol.net
+DOMAIN-SUFFIX,modelcontextprotocol.org
 
 # CDN, static assets, authentication and content.
 DOMAIN,servd-anthropic-website.b-cdn.net
@@ -50,6 +55,15 @@ DOMAIN-KEYWORD,datadog
 DOMAIN-KEYWORD,sift
 DOMAIN-KEYWORD,sentry
 DOMAIN-KEYWORD,statsig
+
+# Additional third-party dependencies identified by VPSDance/ai-proxy-rules.
+DOMAIN,cdn.growthbook.io
+DOMAIN-SUFFIX,ant.dev
+DOMAIN-SUFFIX,interface.feedback
+DOMAIN-SUFFIX,lcicat.org
+DOMAIN-SUFFIX,lcicollections.org
+DOMAIN-SUFFIX,muthos.com
+DOMAIN-SUFFIX,sillylittleguy.org
 
 # Shared support widgets / analytics.
 DOMAIN-SUFFIX,intercom.io
