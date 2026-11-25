@@ -147,10 +147,7 @@ OpenClash 的运行模式、DNS 劫持、Dnsmasq 转发、DNS 分流、嗅探、
 
 ## 策略组图标
 
-- Claude 和 Gemini：使用 [Lobe Icons](https://github.com/lobehub/lobe-icons) 的彩色 PNG CDN（适配 ClashBar 对 SVG 的兼容性问题）。
+- 仅 Claude 和 Gemini 保留 Lobe Icons 彩色 PNG 图标，以补充其策略组名称。
   - Claude：`https://unpkg.com/@lobehub/icons-static-png@latest/dark/claude-color.png`
   - Gemini：`https://unpkg.com/@lobehub/icons-static-png@latest/dark/gemini-color.png`
-- 流媒体、游戏平台、文件下载：使用 [Koolson/Qure](https://github.com/Koolson/Qure) 的语义化彩色图标，避免把 Netflix / Steam 品牌图标误当成整个分类。
-  - 流媒体：`https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png`
-  - 游戏平台：`https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png`
-  - 文件下载：`https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png`
+- 其他策略组不设置 `icon` URL，避免远程图标与策略组名称中已有的 Emoji 重复显示。
