@@ -26,7 +26,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Static.png"
 
   # 自动选择：对 Sub-Store 提供的全部节点测速；Oracle 两个节点刻意排除
   - name: "♻️ 自动选择"
@@ -38,7 +37,6 @@ proxy-groups:
     interval: 300
     tolerance: 50
     lazy: true
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Urltest.png"
 
   # 手动切换：进入国家组；每个国家内部可选自动优选或手动指定具体节点
   - name: "🌐 手动切换"
@@ -61,7 +59,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Cylink.png"
 
   # 两个 Oracle 节点独立成组，不参与美国节点筛选和全局自动测速
   - name: "☁️ 甲骨文圣何塞"
@@ -499,7 +496,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
 
   - name: "💹 长桥证券"
     type: select
@@ -549,7 +545,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/YouTube.png"
 
   - name: "🎬 流媒体"
     type: select
@@ -574,7 +569,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png"
 
   - name: "✈️ 电报信息"
     type: select
@@ -599,7 +593,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Telegram.png"
 
   - name: "🍎 苹果服务"
     type: select
@@ -624,7 +617,6 @@ proxy-groups:
       - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Apple.png"
 
   - name: "Ⓜ️ 微软服务"
     type: select
@@ -649,7 +641,6 @@ proxy-groups:
       - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Microsoft.png"
 
   - name: "🎮 游戏平台"
     type: select
@@ -674,7 +665,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
 
   - name: "⌨️ GitHub"
     type: select
@@ -699,7 +689,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/github.png"
 
   - name: "📥 文件下载"
     type: select
@@ -724,7 +713,6 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png"
 
   - name: "🌍 全球直连"
     type: select
