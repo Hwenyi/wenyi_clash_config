@@ -449,7 +449,7 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg"
+    icon: "https://unpkg.com/@lobehub/icons-static-png@latest/dark/claude-color.png"
 
   - name: "✨ Gemini"
     type: select
@@ -474,7 +474,7 @@ proxy-groups:
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
-    icon: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg"
+    icon: "https://unpkg.com/@lobehub/icons-static-png@latest/dark/gemini-color.png"
 
   - name: "🤖 AI"
     type: select
