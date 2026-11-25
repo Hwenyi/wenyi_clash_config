@@ -423,7 +423,7 @@ proxy-groups:
     exclude-filter: "(?i)^oracle-(vless-reality|hy2-hop)$"
     filter: "(?i)(俄罗斯|俄羅斯|Russia|Moscow|Moskva|St[ ._-]?Petersburg|Saint[ ._-]?Petersburg|\\bRU\\b|🇷🇺)"
 
-  - name: "🤖 Claude"
+  - name: "Claude"
     type: select
     proxies:
       - "🎯 节点选择"
@@ -448,7 +448,7 @@ proxy-groups:
       - DIRECT
     icon: "https://unpkg.com/@lobehub/icons-static-png@latest/dark/claude-color.png"
 
-  - name: "✨ Gemini"
+  - name: "Gemini"
     type: select
     proxies:
       - "🎯 节点选择"
@@ -1010,14 +1010,14 @@ rules:
   - RULE-SET,longbridge,💹 长桥证券
 
   # Claude：域名走 Provider，Anthropic 网络归属由 AS399358 覆盖
-  - RULE-SET,claude,🤖 Claude
-  - IP-ASN,399358,🤖 Claude,no-resolve
+  - RULE-SET,claude,Claude
+  - IP-ASN,399358,Claude,no-resolve
 
   # Gemini / Google AI：必须早于综合 AI
-  - DOMAIN-SUFFIX,notebooklm.google.com,✨ Gemini
-  - DOMAIN-SUFFIX,notebooklm.google,✨ Gemini
-  - RULE-SET,gemini_extra,✨ Gemini
-  - RULE-SET,gemini,✨ Gemini
+  - DOMAIN-SUFFIX,notebooklm.google.com,Gemini
+  - DOMAIN-SUFFIX,notebooklm.google,Gemini
+  - RULE-SET,gemini_extra,Gemini
+  - RULE-SET,gemini,Gemini
 
   # 其他 AI：OpenAI / ChatGPT / Copilot / 其他 AI 服务
   - RULE-SET,openai,🤖 AI
