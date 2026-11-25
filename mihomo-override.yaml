@@ -1021,7 +1021,7 @@ rules:
   # Longbridge：桌面端、HTTP API、行情与交易 WebSocket 域名
   - RULE-SET,longbridge,💹 长桥证券
 
-  # Claude：最高优先级；域名走 Provider，Anthropic 网络归属由 AS399358 覆盖
+  # Claude：域名走 Provider，Anthropic 网络归属由 AS399358 覆盖
   - RULE-SET,claude,🤖 Claude
   - IP-ASN,399358,🤖 Claude,no-resolve
 
