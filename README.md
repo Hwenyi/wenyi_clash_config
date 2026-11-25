@@ -79,7 +79,7 @@ MCP 服务端域名由用户或第三方自行定义，无法仅靠域名规则�
 Claude 的 IP 级补充匹配恢复为：
 
 ```yaml
-IP-ASN,399358,🤖 Claude,no-resolve
+IP-ASN,399358,Claude,no-resolve
 ```
 
 AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实，`2607:6bc0:11::/48` 的 Origin ASN 为 AS399358，ROA 状态有效。恢复 ASN 匹配后，Mihomo 会按目标 IP 的 ASN 归属匹配 Anthropic 公告的地址，而不是依赖手工维护的 CIDR 列表。
