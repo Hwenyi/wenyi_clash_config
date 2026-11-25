@@ -7,6 +7,7 @@
 - `mihomo-override.yaml`：包含 `profile.store-selected`、`proxy-groups`、`rule-providers`、`rules` 的分流覆写模板，不是独立节点订阅。
 - `rules/claude.list`：Claude / Anthropic 高覆盖率规则，按“宁可错杀，不可放过”维护。
 - `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code 等 Google AI 端点。
+- `rules/longbridge.list`：长桥桌面端、官方服务、HTTP API、行情与交易 WebSocket 域名。
 
 ## 配置边界：只管分流，不接管运行环境
 
@@ -84,6 +85,14 @@ IP-ASN,399358,🤖 Claude,no-resolve
 AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实，`2607:6bc0:11::/48` 的 Origin ASN 为 AS399358，ROA 状态有效。恢复 ASN 匹配后，Mihomo 会按目标 IP 的 ASN 归属匹配 Anthropic 公告的地址，而不是依赖手工维护的 CIDR 列表。
 
 因此，`rules/claude.list` 只维护域名规则；Claude 的 IP 级匹配单独放在主 `rules:` 中，避免将 `IP-ASN` 混入域名 Provider。该规则需要可用的 ASN 数据库（`ASN.mmdb`），OpenClash 小闪存模式可将相关数据放在内存中。
+## 长桥证券分流
+
+`💹 长桥证券` 使用独立域名规则，将长桥桌面端及其服务域名统一送入可手动选择的策略组。域名清单依据 [V2Fly Domain List Community 的 Longbridge 列表](https://github.com/v2fly/domain-list-community/blob/master/data/longbridge)，覆盖 `longbridge.cloud`、`longbridge.cn`、`longbridge.com`、`longbridge.global`、`longbridge.hk`、`longbridge.sg`、`longbridgeapp.com`、`longbridgehk.com`、`longportapp.com`、`lbctrl.com`、`lbkrs.com`、`wbrks.com`。
+
+长桥官方 OpenAPI 文档列出的 HTTP API、行情 WebSocket、交易 WebSocket 端点包括 `openapi.longbridge.com`、`openapi-quote.longbridge.com`、`openapi-trade.longbridge.com`、`openapi.longbridge.cn`、`openapi-quote.longbridge.cn`、`openapi-trade.longbridge.cn`；这些主机均由 `longbridge.com` / `longbridge.cn` 后缀规则覆盖，见[官方接入点文档](https://open.longbridge.com/docs/getting-started)及[官方 WebSocket 端点文档](https://open.longbridge.com/docs/socket/hosts)。
+
+该策略组默认使用 `🎯 节点选择`，可单独切换到任一国家组、甲骨文圣何塞、全部节点或 DIRECT。规则使用域名匹配，不依赖 `PROCESS-NAME`：OpenClash 部署在路由器上时，无法可靠识别其他 LAN 设备内部的桌面进程。
+
 ## OpenClash「绕过中国大陆」
 
 本模板不再加载 `china-ip` / `domestic-ip` 规则集，也不写 `GEOIP,CN,DIRECT`。如果 OpenClash 已启用「绕过中国大陆」，保持开启即可。该功能会在插件层把符合条件的大陆目标 IP 流量绕过内核；因此本模板不重复维护 `china-ip` / `domestic-ip`，也不写 `GEOIP,CN,DIRECT`。
@@ -97,6 +106,7 @@ AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实
 - [clash-rules-cn](https://github.com/mcxiaochenn/clash-rules-cn)：国内直连、常见软件、AI、GFWList、广告、私有域名等聚合规则。
 - [Sukka Ruleset](https://ruleset.skk.moe/)：AI、Apple、Microsoft、流媒体、国内直连、全球直连、广告、下载等规则。
 - [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)：Gemini / OpenAI / Copilot、YouTube、Netflix、Telegram、Apple、Microsoft、Game、GitHub 等应用规则；Claude 使用本仓库的高覆盖率专属规则。
+- [V2Fly Domain List Community](https://github.com/v2fly/domain-list-community/blob/master/data/longbridge)：提供长桥官方域名与站点资源域名清单。
 - [VPSDance/ai-proxy-rules](https://github.com/VPSDance/ai-proxy-rules)：Anthropic provider 作为 Claude 核心域名及第三方依赖的补充来源（仅采纳 12 条域名规则，不采纳 `IP-ASN`）；Google AI provider 提供 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code、Labs、Flow、Opal、Stitch 等域名规则。本仓库将 Google AI 域名规则整合进 Gemini 补充列表，不使用其 `PROCESS-NAME` 规则。
 
 ## 关于旧模板中的节点 URL
@@ -106,9 +116,12 @@ AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实
 
 ## 节点选择与其他分组
 
+- 除 `🌍 全球直连` 和 `🛑 广告拦截` 外，所有面向流量的业务策略组及 `🐟 漏网之鱼` 均提供完整出口选项：14 个国家组、甲骨文圣何塞、全部节点、手动切换、节点选择、自动选择及 DIRECT。苹果服务、微软服务继续以 DIRECT 为默认出口；其余业务组沿用节点选择作为默认出口。
+
 - `♻️ 自动选择`：对除 Oracle 外的全部节点做 URL 测速，自动选择延迟较低的节点。
 - `🌐 手动切换`：按国家进入对应国家组；每个国家组默认走自己的自动测速子组，也可以直接选择该国任意节点。
 - `☁️ 甲骨文圣何塞`：只精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点；不兼容旧名称，不参加美国筛选、国家组和全局自动测速。本次国家组改造不修改 Oracle 策略组。
+- `💹 长桥证券`：按长桥专属域名规则分流，默认走节点选择，可切换任意国家组。
 - `📺 YouTube`：单独分组。
 - `🎬 流媒体`：统一承接 Netflix 和其他流媒体；Netflix 的专属规则集仍保留用于精准识别，但不再单独建立策略组。
 - `🌍 全球直连`：对应 Sukka 的 `direct.txt`，是“指定不代理”的规则集合，不代表所有海外网站都直连。它包含本地域名 / 路由器域名、部分 PT 站点、学术与文献站点，以及少量进程规则；默认走 `DIRECT`，也允许手动切到代理。

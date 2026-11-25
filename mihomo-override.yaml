@@ -3,11 +3,26 @@ profile:
   store-selected: true
 
 proxy-groups:
+  # 流量业务组共享完整出口选项；全球直连与广告拦截保留各自的特殊选项。
   - name: "🎯 节点选择"
     type: select
     proxies:
       - "♻️ 自动选择"
       - "🌐 手动切换"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
       - "🌐 全部节点"
       - DIRECT
@@ -416,14 +431,24 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国"
-      - "🇯🇵 日本"
-      - "🇸🇬 新加坡"
-      - "🇭🇰 香港"
-      - "🇹🇼 台湾"
-      - "☁️ 甲骨文圣何塞"
       - "🌐 手动切换"
-      - "DIRECT"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg"
 
   - name: "✨ Gemini"
@@ -431,14 +456,24 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国"
-      - "🇯🇵 日本"
-      - "🇸🇬 新加坡"
-      - "🇭🇰 香港"
-      - "🇹🇼 台湾"
-      - "☁️ 甲骨文圣何塞"
       - "🌐 手动切换"
-      - "DIRECT"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg"
 
   - name: "🤖 AI"
@@ -447,25 +482,73 @@ proxy-groups:
       - "🎯 节点选择"
       - "♻️ 自动选择"
       - "🌐 手动切换"
-      - "🇺🇸 美国"
-      - "🇸🇬 新加坡"
+      - "🇭🇰 香港"
       - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
-      - "DIRECT"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
+
+  - name: "💹 长桥证券"
+    type: select
+    proxies:
+      - "🎯 节点选择"
+      - "♻️ 自动选择"
+      - "🌐 手动切换"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
+    default-selected: "🎯 节点选择"
 
   - name: "📺 YouTube"
     type: select
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国"
-      - "🇯🇵 日本"
-      - "🇸🇬 新加坡"
-      - "🇭🇰 香港"
-      - "🇹🇼 台湾"
       - "🌐 手动切换"
-      - "DIRECT"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/YouTube.png"
 
   - name: "🎬 流媒体"
@@ -473,16 +556,24 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
+      - "🌐 手动切换"
       - "🇭🇰 香港"
       - "🇯🇵 日本"
+      - "🇹🇼 台湾"
       - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
       - "🇺🇸 美国"
       - "🇬🇧 英国"
       - "🇩🇪 德国"
       - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
       - "🇦🇺 澳大利亚"
-      - "🌐 手动切换"
-      - "DIRECT"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png"
 
   - name: "✈️ 电报信息"
@@ -490,42 +581,74 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
+      - "🌐 手动切换"
       - "🇭🇰 香港"
-      - "🇸🇬 新加坡"
       - "🇯🇵 日本"
       - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
       - "🇺🇸 美国"
-      - "🌐 手动切换"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
-      - "DIRECT"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Telegram.png"
 
   - name: "🍎 苹果服务"
     type: select
     proxies:
-      - "DIRECT"
+      - DIRECT
       - "🎯 节点选择"
       - "♻️ 自动选择"
       - "🌐 手动切换"
-      - "🇺🇸 美国"
-      - "🇯🇵 日本"
       - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
       - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Apple.png"
 
   - name: "Ⓜ️ 微软服务"
     type: select
     proxies:
-      - "DIRECT"
+      - DIRECT
       - "🎯 节点选择"
       - "♻️ 自动选择"
       - "🌐 手动切换"
-      - "🇺🇸 美国"
-      - "🇸🇬 新加坡"
-      - "🇯🇵 日本"
       - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
       - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/Microsoft.png"
 
   - name: "🎮 游戏平台"
@@ -533,14 +656,24 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国"
-      - "🇯🇵 日本"
-      - "🇸🇬 新加坡"
-      - "🇭🇰 香港"
-      - "🇰🇷 韩国"
-      - "🇹🇼 台湾"
       - "🌐 手动切换"
-      - "DIRECT"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
 
   - name: "⌨️ GitHub"
@@ -548,12 +681,24 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国"
-      - "🇸🇬 新加坡"
-      - "🇯🇵 日本"
-      - "🇭🇰 香港"
       - "🌐 手动切换"
-      - "DIRECT"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Orz-3/mini/master/Color/github.png"
 
   - name: "📥 文件下载"
@@ -561,12 +706,24 @@ proxy-groups:
     proxies:
       - "🎯 节点选择"
       - "♻️ 自动选择"
-      - "🇺🇸 美国"
-      - "🇯🇵 日本"
-      - "🇸🇬 新加坡"
-      - "🇭🇰 香港"
       - "🌐 手动切换"
-      - "DIRECT"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
     icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png"
 
   - name: "🌍 全球直连"
@@ -587,7 +744,25 @@ proxy-groups:
     type: select
     proxies:
       - "🎯 节点选择"
-      - "DIRECT"
+      - "♻️ 自动选择"
+      - "🌐 手动切换"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇹🇼 台湾"
+      - "🇸🇬 新加坡"
+      - "🇰🇷 韩国"
+      - "🇺🇸 美国"
+      - "🇬🇧 英国"
+      - "🇩🇪 德国"
+      - "🇫🇷 法国"
+      - "🇮🇳 印度"
+      - "🇧🇷 巴西"
+      - "🇦🇺 澳大利亚"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "☁️ 甲骨文圣何塞"
+      - "🌐 全部节点"
+      - DIRECT
 
 # ============================================================
 # 规则集：clash-rules-cn + Sukka + blackmatrix7 + Claude 专属补充
@@ -613,6 +788,11 @@ rule-providers:
     <<: *Classical
     url: "https://raw.githubusercontent.com/Hwenyi/wenyi_clash_config/main/rules/gemini-extra.list"
     path: ./rule_set/custom/gemini-extra.list
+
+  longbridge:
+    <<: *Classical
+    url: "https://raw.githubusercontent.com/Hwenyi/wenyi_clash_config/main/rules/longbridge.list"
+    path: ./rule_set/custom/longbridge.list
 
   openai:
     <<: *Classical
@@ -828,7 +1008,7 @@ rule-providers:
     proxy: "🎯 节点选择"
 
 # ============================================================
-# 规则顺序很重要：Claude > Gemini > AI > 应用专属 > 国内/全球规则 > MATCH
+# 规则顺序很重要：Longbridge > Claude > Gemini > AI > 应用专属 > 国内/全球规则 > MATCH
 # 不配置 GEOIP,CN / china-ip：大陆绕过由 OpenClash 插件负责
 # ============================================================
 rules:
@@ -837,6 +1017,9 @@ rules:
   - RULE-SET,lan_non_ip,DIRECT
   - RULE-SET,lan_reserved_ip,DIRECT,no-resolve
   - GEOIP,LAN,DIRECT,no-resolve
+
+  # Longbridge：桌面端、HTTP API、行情与交易 WebSocket 域名
+  - RULE-SET,longbridge,💹 长桥证券
 
   # Claude：最高优先级；域名走 Provider，Anthropic 网络归属由 AS399358 覆盖
   - RULE-SET,claude,🤖 Claude

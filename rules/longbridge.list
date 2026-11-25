@@ -1,0 +1,16 @@
+# Longbridge desktop app, service, API and quote/trade WebSocket domains.
+# Domain coverage follows V2Fly Domain List Community: data/longbridge.
+# Official OpenAPI HTTP / Quote WS / Trade WS hosts under longbridge.com and
+# longbridge.cn are covered by the corresponding suffix rules.
+DOMAIN-SUFFIX,longbridge.cloud
+DOMAIN-SUFFIX,longbridge.cn
+DOMAIN-SUFFIX,longbridge.com
+DOMAIN-SUFFIX,longbridge.global
+DOMAIN-SUFFIX,longbridge.hk
+DOMAIN-SUFFIX,longbridge.sg
+DOMAIN-SUFFIX,longbridgeapp.com
+DOMAIN-SUFFIX,longbridgehk.com
+DOMAIN-SUFFIX,longportapp.com
+DOMAIN-SUFFIX,lbctrl.com
+DOMAIN-SUFFIX,lbkrs.com
+DOMAIN-SUFFIX,wbrks.com
