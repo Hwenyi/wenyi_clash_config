@@ -1,18 +1,7 @@
-# Claude / Anthropic high-coverage routing rules
-# Intentional overmatch: shared third-party services and Claude Code dependencies are routed via Claude.
-# NTP is intentionally excluded.
-#
-# Sources:
-# - Official Claude Code network requirements:
-#   https://code.claude.com/docs/en/network-config
-# - Official Anthropic inbound IP addresses:
-#   https://platform.claude.com/docs/en/api/ip-addresses
-# - Community high-coverage domain/IP list:
-#   https://ip.net.coffee/claude/site.html
-# - Community Anthropic domain list:
-#   https://github.com/v2fly/domain-list-community/blob/master/data/anthropic
-# - Sukka AI rules:
-#   https://raw.githubusercontent.com/SukkaW/Surge/master/Source/non_ip/ai.conf
+# Claude and Anthropic domains for existing subscriptions.
+# Shared development tools and CDNs use the main template rules.
+# Sources: https://github.com/v2fly/domain-list-community/blob/master/data/anthropic
+#          https://code.claude.com/docs/en/network-config
 
 # Core Anthropic / Claude domains.
 # These suffixes also cover api/a-api/a-cdn/s-cdn/mcp-proxy/assets-proxy,
@@ -33,69 +22,8 @@ DOMAIN-SUFFIX,modelcontextprotocol.io
 DOMAIN-SUFFIX,modelcontextprotocol.net
 DOMAIN-SUFFIX,modelcontextprotocol.org
 
-# CDN, static assets, authentication and content.
+# Claude-specific CDN, authentication and content hosts.
 DOMAIN,servd-anthropic-website.b-cdn.net
 DOMAIN,anthropic.com.cdn.cloudflare.net
 DOMAIN,anthropic.auth0.com
 DOMAIN,anthropic-com.ghost.io
-
-# KYC / identity verification dependencies.
-# Google Maps is a shared API host; it is intentionally overmatched.
-DOMAIN-SUFFIX,withpersona.com
-DOMAIN-SUFFIX,frompersona.com
-DOMAIN,maps.googleapis.com
-
-# Shared telemetry / feature flags / fraud detection.
-DOMAIN-SUFFIX,sentry.io
-DOMAIN-SUFFIX,statsigapi.net
-DOMAIN-SUFFIX,statsig.com
-DOMAIN,browser-intake-us5-datadoghq.com
-DOMAIN,http-intake.logs.us5.datadoghq.com
-DOMAIN-KEYWORD,datadog
-DOMAIN-KEYWORD,sift
-DOMAIN-KEYWORD,sentry
-DOMAIN-KEYWORD,statsig
-
-# Additional third-party dependencies identified by VPSDance/ai-proxy-rules.
-DOMAIN,cdn.growthbook.io
-DOMAIN-SUFFIX,ant.dev
-DOMAIN-SUFFIX,interface.feedback
-DOMAIN-SUFFIX,lcicat.org
-DOMAIN-SUFFIX,lcicollections.org
-DOMAIN-SUFFIX,muthos.com
-DOMAIN-SUFFIX,sillylittleguy.org
-
-# Shared support widgets / analytics.
-DOMAIN-SUFFIX,intercom.io
-DOMAIN-SUFFIX,intercomcdn.com
-DOMAIN,cdn.usefathom.com
-DOMAIN-KEYWORD,intercom
-DOMAIN-KEYWORD,fathom
-
-# Claude Code shared dependencies.
-# These are not Claude-exclusive; they are deliberately routed through Claude
-# to keep plugin, update, marketplace, and artifact flows on the same egress.
-DOMAIN,storage.googleapis.com
-DOMAIN-SUFFIX,npmjs.org
-DOMAIN-SUFFIX,github.com
-DOMAIN-SUFFIX,githubusercontent.com
-DOMAIN-SUFFIX,googlesource.com
-DOMAIN,formulae.brew.sh
-
-# Optional artifact fonts / libraries documented by Anthropic.
-# Shared CDNs may also be used by unrelated sites and apps.
-DOMAIN,fonts.googleapis.com
-DOMAIN,fonts.gstatic.com
-DOMAIN,cdnjs.cloudflare.com
-DOMAIN,cdn.jsdelivr.net
-DOMAIN,cdn.tailwindcss.com
-DOMAIN,code.jquery.com
-DOMAIN,unpkg.com
-
-# Broad fallback keywords: deliberately catch likely Claude / Anthropic / MCP endpoints.
-DOMAIN-KEYWORD,anthropic
-DOMAIN-KEYWORD,claude
-DOMAIN-KEYWORD,mcp
-
-# IP-level Anthropic coverage is handled by IP-ASN,399358 in mihomo-override.yaml.
-# Keep this provider focused on domain rules; no hand-maintained CIDR blocks here.

@@ -986,6 +986,16 @@ rule-providers:
     url: "https://ruleset.skk.moe/Clash/domainset/download.txt"
     path: ./rule_set/sukka/download-domainset.txt
 
+  anthropic:
+    <<: *DomainText
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.list"
+    path: ./rule_set/metacubex/anthropic.list
+
+  homebrew:
+    <<: *DomainText
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/homebrew.list"
+    path: ./rule_set/metacubex/homebrew.list
+
   lan_reserved_ip: &IPCIDRYaml
     type: http
     behavior: ipcidr
@@ -996,7 +1006,7 @@ rule-providers:
     proxy: "🎯 节点选择"
 
 # ============================================================
-# 规则顺序很重要：Longbridge > Claude > Gemini > AI > 应用专属 > 国内/全球规则 > MATCH
+# 规则顺序：Longbridge > 专属 AI > GitHub / Homebrew > 通用 AI > 其他应用 > 国内/全球规则 > MATCH
 # 不配置 GEOIP,CN / china-ip：大陆绕过由 OpenClash 插件负责
 # ============================================================
 rules:
@@ -1009,7 +1019,8 @@ rules:
   # Longbridge：桌面端、HTTP API、行情与交易 WebSocket 域名
   - RULE-SET,longbridge,💹 长桥证券
 
-  # Claude：域名走 Provider，Anthropic 网络归属由 AS399358 覆盖
+  # Claude：复用 Anthropic 规则，保留专属 CDN / MCP 补充及 ASN 匹配
+  - RULE-SET,anthropic,Claude
   - RULE-SET,claude,Claude
   - IP-ASN,399358,Claude,no-resolve
 
@@ -1019,9 +1030,15 @@ rules:
   - RULE-SET,gemini_extra,Gemini
   - RULE-SET,gemini,Gemini
 
-  # 其他 AI：OpenAI / ChatGPT / Copilot / 其他 AI 服务
+  # OpenAI / ChatGPT / Copilot
   - RULE-SET,openai,🤖 AI
   - RULE-SET,copilot,🤖 AI
+
+  # 通用 AI 聚合规则前先处理 GitHub 与 Homebrew
+  - RULE-SET,github,⌨️ GitHub
+  - RULE-SET,homebrew,⌨️ GitHub
+
+  # 其他 AI 服务
   - RULE-SET,ai_domain,🤖 AI
   - RULE-SET,ai_sukka,🤖 AI
 
@@ -1052,9 +1069,8 @@ rules:
   - RULE-SET,microsoft_non_ip,Ⓜ️ 微软服务
   - RULE-SET,microsoft,Ⓜ️ 微软服务
 
-  # 游戏、GitHub、下载
+  # 游戏与下载
   - RULE-SET,game,🎮 游戏平台
-  - RULE-SET,github,⌨️ GitHub
   - RULE-SET,download_domainset,📥 文件下载
   - RULE-SET,download_non_ip,📥 文件下载
 
