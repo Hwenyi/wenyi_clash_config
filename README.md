@@ -8,7 +8,7 @@
 - `rules/claude.list`：Claude 专属域名补充及旧订阅兼容规则。
 - `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code 等 Google AI 端点。
 - `rules/longbridge.list`：长桥桌面端、官方服务、HTTP API、行情与交易 WebSocket 域名。
-- `rules/parsec.list`：Parsec 官方 API、WebSocket、下载与 CDN 域名；P2P UDP 按固定源端口直连。
+- `rules/remote-control.list`：Parsec、RustDesk、网易 UU 远程的服务域名规则；已知 P2P / 信令端口规则在主配置中。
 
 ## 配置边界：只管分流，不接管运行环境
 
@@ -92,17 +92,24 @@ AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实
 
 该策略组默认使用 `🎯 节点选择`，可单独切换到任一国家组、甲骨文圣何塞、全部节点或 DIRECT。规则使用域名匹配，不依赖 `PROCESS-NAME`：OpenClash 部署在路由器上时，无法可靠识别其他 LAN 设备内部的桌面进程。
 
-## Parsec 直连
+## 远程控制
 
-`rules/parsec.list` 仅包含 Parsec 官方列出的专属域名：`*.parsec.app`、`parsecusercontent.com`、`builds.parsecgaming.com`。不把共享的 AWS S3 / CloudFront 域名后缀整体设为 DIRECT，避免改变其他应用的分流。
+`🖥️ 远程控制` 是统一的 Mihomo `select` 策略组，默认选择 `DIRECT`，也可以手动切换到 `🎯 节点选择`。Parsec、RustDesk 和网易 UU 远程（GameViewer）的已知服务流量统一进入该组。
 
-Parsec 的 API / WebSocket / 下载 / CDN 使用 TCP 443；STUN 使用 UDP 3478；实际画面与控制数据通过 UDP P2P 传输，目标是对端公网 IP，因此仅靠域名规则无法覆盖。主规则额外处理：
+`rules/remote-control.list` 覆盖：
 
-- `AND,((NETWORK,udp),(DST-PORT,3478)),DIRECT`：Parsec STUN。
-- `AND,((NETWORK,udp),(SRC-PORT,9000)),DIRECT`：本机作为客户端时的 Client Port。
-- `AND,((NETWORK,udp),(SRC-PORT,8000-8010)),DIRECT`：本机作为主机时的 Host Start Port 及后续会话端口。
+- **Parsec**：`parsec.app`、`parsecusercontent.com`、`builds.parsecgaming.com`。
+- **RustDesk**：`rustdesk.com` 官方域名后缀，覆盖默认 Rendezvous / API 等官方服务域名。
+- **网易 UU 远程**：已知服务域名 `uuyc.163.com`、`*.nrd.nie.163.com`、`nrd-ugc.fp.ps.netease.com`。不把整个 `163.com` 或 `netease.com` 域名空间加入，避免影响其他网易服务。
 
-端口规则同时限定 UDP，不会把相同端口上的 TCP 流量改为直连。Parsec Network 设置建议使用 Client Port `9000`、Host Start Port `8000`；修改后必须重启 Parsec，再确认界面中的 `Currently using` 已切换到配置端口。UPnP 可保持开启，由路由器自动处理端口映射；Mihomo 规则只负责让相关流量直连。
+主配置中的端口规则：
+
+- **Parsec**：UDP 3478（STUN）、本机 UDP 源端口 9000（Client Port）及 8000–8010（Host Start Port 范围）。
+- **RustDesk**：TCP 21115–21117（NAT 检测、Rendezvous / 信令、Relay）和 UDP 21116（Rendezvous）。
+
+本仓库的 OpenClash 运行在家中路由器上，只有家中 Mac mini 经过该路由器。因此不添加 `PROCESS-NAME` 规则：路由器无法识别 Mac 内部的 `GameViewer`、RustDesk 或 Parsec 进程。UU 远程及 RustDesk 的实际 P2P 媒体流量可能使用动态端口和对端 IP，不能仅凭服务域名完整识别；大陆对端 IP 由 OpenClash「绕过中国大陆」功能处理。这里不把所有 UDP 或整台 Mac 的流量强制送入远程控制组，以免误伤其他应用。若实际连接日志显示某条远控 P2P 流量仍进入代理，再按观测到的目标 IP / 端口补充窄规则。
+
+Parsec 修改 Network 端口后需重启客户端，并确认 `Currently using` 已切换到配置端口。RustDesk 普通桌面客户端主要使用上述默认端口；WebSocket 端口 21118 / 21119 不纳入本次桌面客户端规则。
 
 ## OpenClash「绕过中国大陆」
 
@@ -133,6 +140,7 @@ Parsec 的 API / WebSocket / 下载 / CDN 使用 TCP 443；STUN 使用 UDP 3478�
 - `🌐 手动切换`：按国家进入对应国家组；每个国家组默认走自己的自动测速子组，也可以直接选择该国任意节点。
 - `☁️ 甲骨文圣何塞`：只精确筛选最终 YAML 中名为 `oracle-vless-reality` 和 `oracle-hy2-hop` 的两个自建节点；不兼容旧名称，不参加美国筛选、国家组和全局自动测速。本次国家组改造不修改 Oracle 策略组。
 - `💹 长桥证券`：按长桥专属域名规则分流，默认走节点选择，可切换任意国家组。
+- `🖥️ 远程控制`：统一承接 Parsec、RustDesk、网易 UU 远程的已知服务流量，默认 DIRECT，也可手动切换节点。
 - `🎬 流媒体`：统一承接 YouTube、Netflix、YouTube Music、Disney+、Spotify、TikTok、Twitch 等流媒体服务。Sukka 的 `stream.txt` / `stream-ip.txt` 已覆盖 YouTube、Netflix 等数十种服务；同时保留 blackmatrix7 的 YouTube / Netflix 专属规则集，补充更细粒度的域名匹配。所有规则共用这一个策略组，不再拆分独立组。
 - `🌍 全球直连`：对应 Sukka 的 `direct.txt`，是“指定不代理”的规则集合，不代表所有海外网站都直连。它包含本地域名 / 路由器域名、部分 PT 站点、学术与文献站点，以及少量进程规则；默认走 `DIRECT`，也允许手动切到代理。
   - 这组的价值是给这些特定目标保留一个统一的手动出口：平时直连，遇到特定网络环境直连失败时可以临时切代理。
