@@ -8,6 +8,7 @@
 - `rules/claude.list`：Claude 专属域名补充及旧订阅兼容规则。
 - `rules/gemini-extra.list`：补充 Gemini、AI Studio、NotebookLM、Jules、Antigravity、Cloud Code 等 Google AI 端点。
 - `rules/longbridge.list`：长桥桌面端、官方服务、HTTP API、行情与交易 WebSocket 域名。
+- `rules/parsec.list`：Parsec 官方 API、WebSocket、下载与 CDN 域名；P2P UDP 按固定源端口直连。
 
 ## 配置边界：只管分流，不接管运行环境
 
@@ -90,6 +91,18 @@ AS399358 的注册主体为 Anthropic, PBC。此前通过 BGP 路由公告核实
 长桥官方 OpenAPI 文档列出的 HTTP API、行情 WebSocket、交易 WebSocket 端点包括 `openapi.longbridge.com`、`openapi-quote.longbridge.com`、`openapi-trade.longbridge.com`、`openapi.longbridge.cn`、`openapi-quote.longbridge.cn`、`openapi-trade.longbridge.cn`；这些主机均由 `longbridge.com` / `longbridge.cn` 后缀规则覆盖，见[官方接入点文档](https://open.longbridge.com/docs/getting-started)及[官方 WebSocket 端点文档](https://open.longbridge.com/docs/socket/hosts)。
 
 该策略组默认使用 `🎯 节点选择`，可单独切换到任一国家组、甲骨文圣何塞、全部节点或 DIRECT。规则使用域名匹配，不依赖 `PROCESS-NAME`：OpenClash 部署在路由器上时，无法可靠识别其他 LAN 设备内部的桌面进程。
+
+## Parsec 直连
+
+`rules/parsec.list` 仅包含 Parsec 官方列出的专属域名：`*.parsec.app`、`parsecusercontent.com`、`builds.parsecgaming.com`。不把共享的 AWS S3 / CloudFront 域名后缀整体设为 DIRECT，避免改变其他应用的分流。
+
+Parsec 的 API / WebSocket / 下载 / CDN 使用 TCP 443；STUN 使用 UDP 3478；实际画面与控制数据通过 UDP P2P 传输，目标是对端公网 IP，因此仅靠域名规则无法覆盖。主规则额外处理：
+
+- `AND,((NETWORK,udp),(DST-PORT,3478)),DIRECT`：Parsec STUN。
+- `AND,((NETWORK,udp),(SRC-PORT,9000)),DIRECT`：本机作为客户端时的 Client Port。
+- `AND,((NETWORK,udp),(SRC-PORT,8000-8010)),DIRECT`：本机作为主机时的 Host Start Port 及后续会话端口。
+
+端口规则同时限定 UDP，不会把相同端口上的 TCP 流量改为直连。Parsec Network 设置建议使用 Client Port `9000`、Host Start Port `8000`；修改后必须重启 Parsec，再确认界面中的 `Currently using` 已切换到配置端口。UPnP 可保持开启，由路由器自动处理端口映射；Mihomo 规则只负责让相关流量直连。
 
 ## OpenClash「绕过中国大陆」
 
