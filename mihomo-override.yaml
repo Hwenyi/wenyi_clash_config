@@ -781,16 +781,6 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.list"
     path: ./rule_set/blackmatrix7/copilot.list
 
-  youtube:
-    <<: *Classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list"
-    path: ./rule_set/blackmatrix7/youtube.list
-
-  netflix:
-    <<: *Classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list"
-    path: ./rule_set/blackmatrix7/netflix.list
-
   telegram:
     <<: *Classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list"
@@ -1051,9 +1041,7 @@ rules:
   - RULE-SET,reject_non_ip_no_drop,🛑 广告拦截
   - RULE-SET,reject_ip,🛑 广告拦截,no-resolve
 
-  # YouTube / Netflix / 其他流媒体统一进入流媒体组
-  - RULE-SET,youtube,🎬 流媒体
-  - RULE-SET,netflix,🎬 流媒体
+  # Telegram 独立分流
   - RULE-SET,telegram,✈️ 电报信息
 
   # Apple / Microsoft CDN 与中国区直连例外先匹配
@@ -1070,14 +1058,14 @@ rules:
   - RULE-SET,microsoft_non_ip,Ⓜ️ 微软服务
   - RULE-SET,microsoft,Ⓜ️ 微软服务
 
+  # Sukka 聚合流媒体规则：YouTube / Netflix / Disney+ / TikTok / Twitch 等
+  - RULE-SET,stream_non_ip,🎬 流媒体
+  - RULE-SET,stream_ip,🎬 流媒体
+
   # 游戏与下载
   - RULE-SET,game,🎮 游戏平台
   - RULE-SET,download_domainset,📥 文件下载
   - RULE-SET,download_non_ip,📥 文件下载
-
-  # 其余流媒体规则进入同一个流媒体策略组
-  - RULE-SET,stream_non_ip,🎬 流媒体
-  - RULE-SET,stream_ip,🎬 流媒体
 
   # 国内常见软件与国内域名直连
   - RULE-SET,common_software,DIRECT
