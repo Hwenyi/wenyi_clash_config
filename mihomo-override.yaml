@@ -522,6 +522,14 @@ proxy-groups:
       - DIRECT
     default-selected: "🎯 节点选择"
 
+  # 远程控制：默认直连；必要时可手动切换到节点选择
+  - name: "🖥️ 远程控制"
+    type: select
+    proxies:
+      - DIRECT
+      - "🎯 节点选择"
+    default-selected: DIRECT
+
   - name: "🎬 流媒体"
     type: select
     proxies:
@@ -758,10 +766,10 @@ rule-providers:
     url: "https://raw.githubusercontent.com/Hwenyi/wenyi_clash_config/main/rules/longbridge.list"
     path: ./rule_set/custom/longbridge.list
 
-  parsec:
+  remote_control:
     <<: *Classical
-    url: "https://raw.githubusercontent.com/Hwenyi/wenyi_clash_config/main/rules/parsec.list"
-    path: ./rule_set/custom/parsec.list
+    url: "https://raw.githubusercontent.com/Hwenyi/wenyi_clash_config/main/rules/remote-control.list"
+    path: ./rule_set/custom/remote-control.list
 
   openai:
     <<: *Classical
@@ -987,7 +995,7 @@ rule-providers:
     proxy: "🎯 节点选择"
 
 # ============================================================
-# 规则顺序：Parsec / Longbridge > 专属 AI > GitHub / Homebrew > 通用 AI > 其他应用 > 国内/全球规则 > MATCH
+# 规则顺序：远程控制 / Longbridge > 专属 AI > GitHub / Homebrew > 通用 AI > 其他应用 > 国内/全球规则 > MATCH
 # 不配置 GEOIP,CN / china-ip：大陆绕过由 OpenClash 插件负责
 # ============================================================
 rules:
@@ -997,13 +1005,17 @@ rules:
   - RULE-SET,lan_reserved_ip,DIRECT,no-resolve
   - GEOIP,LAN,DIRECT,no-resolve
 
-  # Parsec：API / WebSocket / 下载 / CDN 域名直连
-  - RULE-SET,parsec,DIRECT
+  # Parsec / RustDesk / UU 远程：服务域名进入统一远程控制策略组
+  - RULE-SET,remote_control,🖥️ 远程控制
 
   # Parsec：STUN 与 P2P 媒体传输（UDP）
-  - AND,((NETWORK,udp),(DST-PORT,3478)),DIRECT
-  - AND,((NETWORK,udp),(SRC-PORT,9000)),DIRECT
-  - AND,((NETWORK,udp),(SRC-PORT,8000-8010)),DIRECT
+  - AND,((NETWORK,udp),(DST-PORT,3478)),🖥️ 远程控制
+  - AND,((NETWORK,udp),(SRC-PORT,9000)),🖥️ 远程控制
+  - AND,((NETWORK,udp),(SRC-PORT,8000-8010)),🖥️ 远程控制
+
+  # RustDesk 官方服务：NAT 检测、Rendezvous / 信令、Relay
+  - AND,((NETWORK,tcp),(DST-PORT,21115-21117)),🖥️ 远程控制
+  - AND,((NETWORK,udp),(DST-PORT,21116)),🖥️ 远程控制
 
   # Longbridge：桌面端、HTTP API、行情与交易 WebSocket 域名
   - RULE-SET,longbridge,💹 长桥证券
