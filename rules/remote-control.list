@@ -1,0 +1,12 @@
+# Parsec: API / WebSocket / downloads / CDN
+DOMAIN-SUFFIX,parsec.app
+DOMAIN-SUFFIX,parsecusercontent.com
+DOMAIN,builds.parsecgaming.com
+
+# RustDesk official rendezvous / API / service hosts
+DOMAIN-SUFFIX,rustdesk.com
+
+# NetEase UU Remote (GameViewer): known signaling / service hosts
+DOMAIN-SUFFIX,uuyc.163.com
+DOMAIN-SUFFIX,nrd.nie.163.com
+DOMAIN,nrd-ugc.fp.ps.netease.com
